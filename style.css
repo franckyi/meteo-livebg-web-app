@@ -14,7 +14,7 @@ body {
 
 .bg {
   width: 100vw;
-  height: 100%;
+  height: 100vh;
   position: absolute;
   top: 0;
   z-index: -1;
@@ -32,25 +32,44 @@ main {
   max-width: 20%;
   margin: 15vh auto 0;
 }
+@media screen and (orientation: landscape) {
+  #weather-icon {
+    margin-top: 0;
+  }
+}
 
 .location {
   margin-bottom: 1em;
   font-size: 2rem;
   font-weight: 300;
 }
+@media screen and (orientation: landscape) {
+  .location {
+    margin-bottom: 5px;
+    font-size: 1.5rem;
+  }
+}
 
 article {
-  width: 60%;
+  width: 80%;
   max-width: 320px;
-  height: 200px;
+  height: 240px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
   background: rgba(70, 192, 233, 0.5411764706);
-  border-radius: 55px;
+  border-radius: 25px;
   border: 1px solid #4fa4d0;
   box-shadow: 0 0 46px;
+}
+@media screen and (orientation: landscape) {
+  article {
+    margin: 1em auto;
+    width: 100%;
+    max-width: 50%;
+    height: 150px;
+  }
 }
 
 .desc {
@@ -58,6 +77,11 @@ article {
   font-size: 1.5em;
   text-transform: capitalize;
   font-style: italic;
+}
+@media screen and (orientation: landscape) {
+  .desc {
+    margin-bottom: 5px;
+  }
 }
 
 .temp {
@@ -67,6 +91,11 @@ article {
 }
 .temp .c {
   font-size: 3rem;
+}
+@media screen and (orientation: landscape) {
+  .temp .c {
+    font-size: 2rem;
+  }
 }
 .temp .range .min, .temp .range .max {
   color: #ffe0b2;
@@ -92,6 +121,11 @@ article {
   font-size: 0.5rem;
   color: #004b64;
   text-decoration: none;
+}
+@media screen and (orientation: landscape) {
+  .credits {
+    margin-top: 5px;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */
