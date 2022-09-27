@@ -36,6 +36,7 @@ main {
 .location {
   margin-bottom: 1em;
   font-size: 2rem;
+  font-weight: 300;
 }
 
 article {
@@ -68,8 +69,11 @@ article {
   font-size: 3rem;
 }
 .temp .range .min, .temp .range .max {
-  color: #004b64;
+  color: #ffe0b2;
   font-style: italic;
+}
+.temp .range .max {
+  margin-left: 15px;
 }
 
 .day {
