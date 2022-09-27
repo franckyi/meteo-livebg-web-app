@@ -1,6 +1,6 @@
 # Weather app
 
-
+JS Weather app using API.
 
 ## Getting started
 
