@@ -36,8 +36,8 @@ window.addEventListener('load', () => {
                     loc.textContent = `${location}`;
                     desc.textContent = `${description}`;
                     tempC.textContent = `${temp.toFixed(1)} °C`;
-                    tempMin.textContent = `${temp_min.toFixed(1)} °C`;
-                    tempMax.textContent = `${temp_max.toFixed(1)} °C`;
+                    tempMin.textContent = `min ${temp_min.toFixed(1)} °C`;
+                    tempMax.textContent = `max ${temp_max.toFixed(1)} °C`;
                     sunriseHTML.textContent = `${sunriseGMT.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'} )}`;
                     sunsetHTML.textContent = `${sunsetGMT.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'} )}`;
                 })
