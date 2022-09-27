@@ -1,0 +1,21 @@
+*, html, *::before, *::after {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: deepskyblue;
+}
+
+.bg {
+  width: 100vw;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  z-index: -1;
+  filter: blur(3px);
+}
+
+main {
+  width: 50vw;
+}
