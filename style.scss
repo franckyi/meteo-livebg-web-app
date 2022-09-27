@@ -68,6 +68,9 @@ article {
     max-width: 50%;
     height: 150px;
   }
+  @media screen and (min-width: 992px) {
+    max-width: 25%;
+  }
 }
 
 .desc {

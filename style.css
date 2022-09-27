@@ -76,6 +76,11 @@ article {
     height: 150px;
   }
 }
+@media screen and (min-width: 992px) {
+  article {
+    max-width: 25%;
+  }
+}
 
 .desc {
   margin-bottom: 1em;
