@@ -1,3 +1,5 @@
+import OPENWEATHER_API_KEY from './config';
+
 // const myKey = MY_KEY;
 const iconHTML = document.getElementById('weather-icon');
 const loc = document.querySelector('.location');
