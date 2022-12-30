@@ -1,4 +1,4 @@
-const myKey = config.MY_KEY;
+const myKey = MY_KEY;
 const iconHTML = document.getElementById('weather-icon');
 const loc = document.querySelector('.location');
 const desc = document.querySelector('.desc');
