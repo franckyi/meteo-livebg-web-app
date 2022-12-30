@@ -1,6 +1,5 @@
-import OPENWEATHER_API_KEY from './config';
+import {MY_API_KEY} from './config.js';
 
-// const myKey = MY_KEY;
 const iconHTML = document.getElementById('weather-icon');
 const loc = document.querySelector('.location');
 const desc = document.querySelector('.desc');
@@ -11,9 +10,6 @@ const sunriseHTML = document.querySelector('.sunrise');
 const sunsetHTML = document.querySelector('.sunset');
 
 window.addEventListener('load', () => {
-    //test
-    // console.warn(PROVA_VAR);
-    console.warn(TEST);
     let lat;
     let long;
     // Infos are displayed only if allowed by browser
@@ -22,7 +18,7 @@ window.addEventListener('load', () => {
             // console.log(position);
             lat = position.coords.latitude;
             long = position.coords.longitude;
-            const apiBase = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${MY_KEY}&units=metric`;
+            const apiBase = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${MY_API_KEY}&units=metric`;
 
             fetch(apiBase)
                 .then( (response) => {
