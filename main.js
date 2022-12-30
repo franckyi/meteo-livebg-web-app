@@ -1,4 +1,4 @@
-const myKey = MY_KEY;
+// const myKey = MY_KEY;
 const iconHTML = document.getElementById('weather-icon');
 const loc = document.querySelector('.location');
 const desc = document.querySelector('.desc');
@@ -17,7 +17,7 @@ window.addEventListener('load', () => {
             // console.log(position);
             lat = position.coords.latitude;
             long = position.coords.longitude;
-            const apiBase = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${myKey}&units=metric`;
+            const apiBase = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${MY_KEY}&units=metric`;
 
             fetch(apiBase)
                 .then( (response) => {
