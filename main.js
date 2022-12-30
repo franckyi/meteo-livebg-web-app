@@ -11,6 +11,7 @@ const sunsetHTML = document.querySelector('.sunset');
 window.addEventListener('load', () => {
     //test
     console.warn(PROVA_VAR);
+    console.warn(TEST);
     let lat;
     let long;
     // Infos are displayed only if allowed by browser
