@@ -9,6 +9,8 @@ const sunriseHTML = document.querySelector('.sunrise');
 const sunsetHTML = document.querySelector('.sunset');
 
 window.addEventListener('load', () => {
+    //test
+    console.warn(PROVA_VAR);
     let lat;
     let long;
     // Infos are displayed only if allowed by browser
