@@ -30,8 +30,8 @@ const minutes = new Date().getMinutes();
 const today = `${currentDate} ${months[currentMonth]} ${currentYear}`;
 const time = `${hour}:${minutes}`;
 
-console.log(today);
-console.log(time);
+document.getElementById('time').innerHTML = time;
+document.getElementById('date').innerHTML = today;
 
 window.addEventListener('load', () => {
     let lat;
