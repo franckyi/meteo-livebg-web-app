@@ -1,4 +1,4 @@
-import {MY_API_KEY} from './config.js';
+// import {OPENWEATHER_APIKEY} from './config.js';
 
 const iconHTML = document.getElementById('weather-icon');
 const loc = document.querySelector('.location');
@@ -8,6 +8,30 @@ const tempMin = document.querySelector('.min');
 const tempMax = document.querySelector('.max');
 const sunriseHTML = document.querySelector('.sunrise');
 const sunsetHTML = document.querySelector('.sunset');
+const currentDate = new Date().getDate();
+const currentMonth = new Date().getMonth();
+const months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December'
+  ]
+const currentYear = new Date().getFullYear();
+const hour = new Date().getHours();
+const minutes = new Date().getMinutes();
+const today = `${currentDate} ${months[currentMonth]} ${currentYear}`;
+const time = `${hour}:${minutes}`;
+
+console.log(today);
+console.log(time);
 
 window.addEventListener('load', () => {
     let lat;
@@ -18,7 +42,7 @@ window.addEventListener('load', () => {
             // console.log(position);
             lat = position.coords.latitude;
             long = position.coords.longitude;
-            const apiBase = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${MY_API_KEY}&units=metric`;
+            const apiBase = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${OPENWEATHER_APIKEY}&units=metric`;
 
             fetch(apiBase)
                 .then( (response) => {
