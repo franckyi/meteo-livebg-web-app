@@ -43,7 +43,6 @@ window.addEventListener('load', () => {
             lat = position.coords.latitude;
             long = position.coords.longitude;
             const apiWeather = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${OPENWEATHER_APIKEY}&units=metric`;
-            const apiForecast = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${long}&appid=${OPENWEATHER_APIKEY}&units=metric`;
             fetch(apiWeather)
                 .then( (response) => { return response.json() } )
                 .then( (data) => {
@@ -62,14 +61,6 @@ window.addEventListener('load', () => {
                     tempMax.textContent = `max ${temp_max.toFixed(1)} °C`;
                     sunriseHTML.textContent = `${sunriseGMT.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'} )}`;
                     sunsetHTML.textContent = `${sunsetGMT.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'} )}`;
-                })
-            fetch(apiForecast)
-                .then( (response) => { return response.json() } )
-                .then( (data) => {
-                    const dateToday = new Date(data.list[0].dt);
-                    const cod = data.cod;
-                    console.log(cod);
-                    console.log(dateToday); // passare la data in ms a dt
                 })
         })
     }
