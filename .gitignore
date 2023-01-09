@@ -4,3 +4,5 @@ config.js
 /node_modules
 functions
 package-lock.json
+style.css
+style.css.map
