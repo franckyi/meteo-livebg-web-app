@@ -26,7 +26,8 @@ const months = [
   ]
 const currentYear = new Date().getFullYear();
 const hour = new Date().getHours();
-const minutes = new Date().getMinutes();
+let minutes = new Date().getMinutes();
+minutes = minutes < 10 ? `0${minutes}` : minutes;
 const today = `${currentDate} ${months[currentMonth]} ${currentYear}`;
 const time = `${hour}:${minutes}`;
 
@@ -64,4 +65,7 @@ window.addEventListener('load', () => {
                 })
         })
     }
+
+
+    
 });
