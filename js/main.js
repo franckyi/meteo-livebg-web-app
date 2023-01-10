@@ -35,66 +35,79 @@ let minutes = new Date().getMinutes();
 minutes = minutes < 10 ? `0${minutes}` : minutes;
 let today = `${currentDate} ${months[currentMonth]} ${currentYear}`;
 let time = `${hour}:${minutes}`;
-
 document.getElementById('time').innerHTML = time;
 document.getElementById('date').innerHTML = today;
 
-// WEATHER DATA
-const apiByPosition = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${OPENWEATHER_APIKEY}&units=metric`;
-const apiByCity = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=${OPENWEATHER_APIKEY}&units=metric`;
-// const apiByCity = `http://api.openweathermap.org/geo/1.0/direct?q=${city},{state code},{country code}&appid=${OPENWEATHER_APIKEY}&units=metric`;
-
-let city;
-let lat;
-let lon;
-
-// Default fetch function 
-const getWeatherData = (apiUrl, city, lat, lon) => {
-    fetch(apiUrl)
-    .then( (response) => response.json() )
-    .then( (data) => {
-        let location = data.name;
-        let {temp, temp_min, temp_max} = data.main;
-        let {description, icon} = data.weather[0];
-        let {sunrise, sunset} = data.sys;
-        let iconUrl = `http://openweathermap.org/img/wn/${icon}@2x.png`;
-        let sunriseGMT = new Date(sunrise * 1000);
-        let sunsetGMT = new Date(sunset * 1000);
-        iconHTML.src = iconUrl;
-        loc.textContent = `${location}`;
-        desc.textContent = `${description}`;
-        tempC.textContent = `${temp.toFixed(1)} °C`;
-        tempMin.textContent = `min ${temp_min.toFixed(1)} °C`;
-        tempMax.textContent = `max ${temp_max.toFixed(1)} °C`;
-        sunriseHTML.textContent = `${sunriseGMT.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'} )}`;
-        sunsetHTML.textContent = `${sunsetGMT.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'} )}`;
-    })
-}
 
 window.addEventListener('load', () => {
-
+    
     // Fetch location only after allowing access to position in the browser 
     if(navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition((position) => {
-            // console.log(position);
-            lat = position.coords.latitude;
-            lon = position.coords.longitude;
-            getWeatherData(apiByPosition);
+        navigator.geolocation.getCurrentPosition( (position) => {
+
+            let lat = position.coords.latitude;
+            let lon = position.coords.longitude;
+            const apiByPosition = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${OPENWEATHER_APIKEY}&units=metric`;
+            
+            fetch(apiByPosition)
+                .then( (response) => response.json() )
+                .then( (data) => {
+                let location = data.name;
+                let {temp, temp_min, temp_max} = data.main;
+                let {description, icon} = data.weather[0];
+                let {sunrise, sunset} = data.sys;
+                let iconUrl = `http://openweathermap.org/img/wn/${icon}@2x.png`;
+                let sunriseGMT = new Date(sunrise * 1000);
+                let sunsetGMT = new Date(sunset * 1000);
+                iconHTML.src = iconUrl;
+                loc.textContent = `${location}`;
+                desc.textContent = `${description}`;
+                tempC.textContent = `${temp.toFixed(1)} °C`;
+                tempMin.textContent = `min ${temp_min.toFixed(1)} °C`;
+                tempMax.textContent = `max ${temp_max.toFixed(1)} °C`;
+                sunriseHTML.textContent = `${sunriseGMT.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'} )}`;
+                sunsetHTML.textContent = `${sunsetGMT.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'} )}`;
+            })
         })
     }
 
     btn.addEventListener( 'click', (e) => {
         e.preventDefault();
-        city = inputCity.value; 
+        let city = inputCity.value; 
+        let lat, lon;
         document.forms[0].reset();
+        
         console.warn(`city = ${city}`);
+        const apiByCity = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=${OPENWEATHER_APIKEY}&units=metric`;
+        // const apiByCity = `http://api.openweathermap.org/geo/1.0/direct?q=${city},{state code},{country code}&appid=${OPENWEATHER_APIKEY}&units=metric`;
 
         fetch(apiByCity)
             .then( (response) => response.json() )
             .then( (data) => {
-                console.log(data[0].lat);
-                console.log(data[0].lon);
-            });
+                lat = data[0].latitude;
+                lon = data[0].longitude;
+                console.log(lat,lon);
+                return fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${OPENWEATHER_APIKEY}&units=metric`);
+            })
+            .then( (response) => response.json() )
+            .then( (data) => {
+                console.log(data);
+                let location = data.name;
+                let {temp, temp_min, temp_max} = data.main;
+                let {description, icon} = data.weather[0];
+                let {sunrise, sunset} = data.sys;
+                let iconUrl = `http://openweathermap.org/img/wn/${icon}@2x.png`;
+                let sunriseGMT = new Date(sunrise * 1000);
+                let sunsetGMT = new Date(sunset * 1000);
+                iconHTML.src = iconUrl;
+                loc.textContent = `${location}`;
+                desc.textContent = `${description}`;
+                tempC.textContent = `${temp.toFixed(1)} °C`;
+                tempMin.textContent = `min ${temp_min.toFixed(1)} °C`;
+                tempMax.textContent = `max ${temp_max.toFixed(1)} °C`;
+                sunriseHTML.textContent = `${sunriseGMT.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'} )}`;
+                sunsetHTML.textContent = `${sunsetGMT.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'} )}`;
+                })
 
     });
 
