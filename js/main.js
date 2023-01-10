@@ -49,7 +49,7 @@ window.addEventListener('load', () => {
             long = position.coords.longitude;
             const apiWeather = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${OPENWEATHER_APIKEY}&units=metric`;
             fetch(apiWeather)
-                .then( (response) => { return response.json() } )
+                .then( (response) => response.json() )
                 .then( (data) => {
                     const location = data.name;
                     const {temp, temp_min, temp_max} = data.main;
