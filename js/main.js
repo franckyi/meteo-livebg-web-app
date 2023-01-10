@@ -39,8 +39,9 @@ document.getElementById('date').innerHTML = today;
 window.addEventListener('load', () => {
     let lat;
     let long;
-    let q;
-    // Infos are displayed only if allowed by browser
+    let city;
+
+    // Fetch location only after allowing access to position in the browser 
     if(navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((position) => {
             // console.log(position);
@@ -69,12 +70,11 @@ window.addEventListener('load', () => {
         })
     }
 
-
     btn.addEventListener( 'click', (e) => {
         e.preventDefault();
-        q = inputCity.value; 
+        city = inputCity.value; 
         document.forms[0].reset();
-        console.warn(`q = ${q}`);
+        console.warn(`city = ${city}`);
     });
-    
+
 });
