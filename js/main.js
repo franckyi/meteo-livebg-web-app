@@ -77,4 +77,12 @@ window.addEventListener('load', () => {
         console.warn(`city = ${city}`);
     });
 
+    const apiGeocoding = `http://api.openweathermap.org/geo/1.0/direct?q={city},{state code},{country code}&limit={limit}&appid=${OPENWEATHER_APIKEY}&units=metric`;
+    fetch(apiGeocoding)
+        .then( (response) => response.json() )
+        .then( (data) => {
+            
+        });
+
+
 });
