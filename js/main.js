@@ -1,5 +1,7 @@
 import {OPENWEATHER_APIKEY} from './config.js';
 
+const inputCity = document.getElementById('input-city');
+const btn = document.getElementById('btn');
 const iconHTML = document.getElementById('weather-icon');
 const loc = document.querySelector('.location');
 const desc = document.querySelector('.desc');
@@ -8,9 +10,9 @@ const tempMin = document.querySelector('.min');
 const tempMax = document.querySelector('.max');
 const sunriseHTML = document.querySelector('.sunrise');
 const sunsetHTML = document.querySelector('.sunset');
-const currentDate = new Date().getDate();
-const currentMonth = new Date().getMonth();
-const months = [
+let currentDate = new Date().getDate();
+let currentMonth = new Date().getMonth();
+let months = [
     'January',
     'February',
     'March',
@@ -24,12 +26,12 @@ const months = [
     'November',
     'December'
   ]
-const currentYear = new Date().getFullYear();
-const hour = new Date().getHours();
+let currentYear = new Date().getFullYear();
+let hour = new Date().getHours();
 let minutes = new Date().getMinutes();
 minutes = minutes < 10 ? `0${minutes}` : minutes;
-const today = `${currentDate} ${months[currentMonth]} ${currentYear}`;
-const time = `${hour}:${minutes}`;
+let today = `${currentDate} ${months[currentMonth]} ${currentYear}`;
+let time = `${hour}:${minutes}`;
 
 document.getElementById('time').innerHTML = time;
 document.getElementById('date').innerHTML = today;
@@ -37,6 +39,7 @@ document.getElementById('date').innerHTML = today;
 window.addEventListener('load', () => {
     let lat;
     let long;
+    let q;
     // Infos are displayed only if allowed by browser
     if(navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((position) => {
@@ -67,5 +70,11 @@ window.addEventListener('load', () => {
     }
 
 
+    btn.addEventListener( 'click', (e) => {
+        e.preventDefault();
+        q = inputCity.value; 
+        document.forms[0].reset();
+        console.warn(`q = ${q}`);
+    });
     
 });
