@@ -41,6 +41,22 @@ window.addEventListener('load', () => {
     let long;
     let city;
 
+    btn.addEventListener( 'click', (e) => {
+        e.preventDefault();
+        city = inputCity.value; 
+        document.forms[0].reset();
+        console.warn(`city = ${city}`);
+
+        const apiGeocoding = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=${OPENWEATHER_APIKEY}&units=metric`;
+        // const apiGeocoding = `http://api.openweathermap.org/geo/1.0/direct?q=${city},{state code},{country code}&appid=${OPENWEATHER_APIKEY}&units=metric`;
+        fetch(apiGeocoding)
+            .then( (response) => response.json() )
+            .then( (data) => {
+                console.log(data[0].name)
+            });
+
+    });
+
     // Fetch location only after allowing access to position in the browser 
     if(navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((position) => {
@@ -48,41 +64,32 @@ window.addEventListener('load', () => {
             lat = position.coords.latitude;
             long = position.coords.longitude;
             const apiWeather = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${OPENWEATHER_APIKEY}&units=metric`;
+        
             fetch(apiWeather)
-                .then( (response) => response.json() )
-                .then( (data) => {
-                    const location = data.name;
-                    const {temp, temp_min, temp_max} = data.main;
-                    const {description, icon} = data.weather[0];
-                    const {sunrise, sunset} = data.sys;
-                    const iconUrl = `http://openweathermap.org/img/wn/${icon}@2x.png`;
-                    const sunriseGMT = new Date(sunrise * 1000);
-                    const sunsetGMT = new Date(sunset * 1000);
-                    iconHTML.src = iconUrl;
-                    loc.textContent = `${location}`;
-                    desc.textContent = `${description}`;
-                    tempC.textContent = `${temp.toFixed(1)} °C`;
-                    tempMin.textContent = `min ${temp_min.toFixed(1)} °C`;
-                    tempMax.textContent = `max ${temp_max.toFixed(1)} °C`;
-                    sunriseHTML.textContent = `${sunriseGMT.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'} )}`;
-                    sunsetHTML.textContent = `${sunsetGMT.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'} )}`;
-                })
+            .then( (response) => response.json() )
+            .then( (data) => {
+                const location = data.name;
+                const {temp, temp_min, temp_max} = data.main;
+                const {description, icon} = data.weather[0];
+                const {sunrise, sunset} = data.sys;
+                const iconUrl = `http://openweathermap.org/img/wn/${icon}@2x.png`;
+                const sunriseGMT = new Date(sunrise * 1000);
+                const sunsetGMT = new Date(sunset * 1000);
+                iconHTML.src = iconUrl;
+                loc.textContent = `${location}`;
+                desc.textContent = `${description}`;
+                tempC.textContent = `${temp.toFixed(1)} °C`;
+                tempMin.textContent = `min ${temp_min.toFixed(1)} °C`;
+                tempMax.textContent = `max ${temp_max.toFixed(1)} °C`;
+                sunriseHTML.textContent = `${sunriseGMT.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'} )}`;
+                sunsetHTML.textContent = `${sunsetGMT.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'} )}`;
+            })
+
         })
     }
 
-    btn.addEventListener( 'click', (e) => {
-        e.preventDefault();
-        city = inputCity.value; 
-        document.forms[0].reset();
-        console.warn(`city = ${city}`);
-    });
 
-    const apiGeocoding = `http://api.openweathermap.org/geo/1.0/direct?q={city},{state code},{country code}&limit={limit}&appid=${OPENWEATHER_APIKEY}&units=metric`;
-    fetch(apiGeocoding)
-        .then( (response) => response.json() )
-        .then( (data) => {
-            
-        });
+
 
 
 });
