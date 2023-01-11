@@ -38,7 +38,6 @@ let time = `${hour}:${minutes}`;
 document.getElementById('time').innerHTML = time;
 document.getElementById('date').innerHTML = today;
 
-
 window.addEventListener('load', () => {
     
     // Fetch location only after allowing access to position in the browser 
