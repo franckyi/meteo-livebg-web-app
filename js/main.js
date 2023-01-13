@@ -83,20 +83,30 @@ window.addEventListener('load', () => {
         const apiByCity = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${OPENWEATHER_APIKEY}&units=metric`;
         // const apiByCity = `http://api.openweathermap.org/geo/1.0/direct?q=${city},{state code},{country code}&appid=${OPENWEATHER_APIKEY}&units=metric`;
         
+        // Update VIEW with new entered lat and lon
         fetch(apiByCity)
             .then( (response) => response.json() )
             .then( (data) => {
 
                 console.warn( 'test' );
+                console.warn(data.length);
                 console.warn(data);
+
+                if (data.length < 2) {
+
+
+                    
+                } else {
+                
+                }
                 
 
                 lat = data[0].lat;
                 lon = data[0].lon;
 
-                // console.warn( 'fetch by city OK' )
-                // console.log(data);
-                // console.log(lat,lon);
+                console.warn( 'fetch by city OK' )
+                console.log(data);
+                console.log(lat,lon);
 
                 return fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${OPENWEATHER_APIKEY}&units=metric`)
 
