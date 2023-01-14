@@ -73,6 +73,21 @@ window.addEventListener('load', () => {
 
     }
 
+    inputCity.addEventListener( 'input', () => {
+
+        console.log(inputCity.value);
+
+        // fetch current input value
+        fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${inputCity.value}&limit=5&appid=${OPENWEATHER_APIKEY}&units=metric`)
+        .then( (respons) => response.json() )
+        .then( (data) => {
+        
+        });
+
+
+
+    })
+
     btn.addEventListener( 'click', (e) => {
         e.preventDefault();
         let city = inputCity.value; 
