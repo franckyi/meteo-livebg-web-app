@@ -73,7 +73,7 @@ window.addEventListener('load', () => {
 
     }
 
-    inputCity.addEventListener( 'input', () => {
+    inputCity.addEventListener( 'input', setTimeout(() => {
 
         console.log(inputCity.value);
 
@@ -86,7 +86,8 @@ window.addEventListener('load', () => {
 
 
 
-    })
+        }, 1000)
+    )
 
     btn.addEventListener( 'click', (e) => {
         e.preventDefault();
