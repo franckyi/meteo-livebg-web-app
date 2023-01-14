@@ -73,21 +73,32 @@ window.addEventListener('load', () => {
 
     }
 
-    inputCity.addEventListener( 'input', setTimeout(() => {
+    inputCity.addEventListener( 'input', () => {
 
+        /* IN THIS FUNCTION ONLY CHECK LIST OF CITIES
+           & DISPLAY IT */
+        
         console.log(inputCity.value);
 
         // fetch current input value
         fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${inputCity.value}&limit=5&appid=${OPENWEATHER_APIKEY}&units=metric`)
-        .then( (respons) => response.json() )
+        .then( (response) => response.json() )
         .then( (data) => {
+
+            if (data.length > 2) {
+
+                console.warn(data);
+                console.warn(typeof(data));
+
+                data.forEach( city => {
+                    console.log(city);
+                    // console.log(city);
+                } )
+
+            }
         
         });
-
-
-
-        }, 1000)
-    )
+    })
 
     btn.addEventListener( 'click', (e) => {
         e.preventDefault();
@@ -104,7 +115,7 @@ window.addEventListener('load', () => {
         fetch(apiByCity)
         .then( (response) => response.json() )
         .then( (data) => {
-            if (data.length < 2) {
+            if (data.length > 0 && data.length < 2) {
                 lat = data[0].lat;
                 lon = data[0].lon;
 
