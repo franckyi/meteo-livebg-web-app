@@ -91,8 +91,14 @@ window.addEventListener('load', () => {
                 console.warn(typeof(data));
 
                 data.forEach( city => {
+
+                    // HERE APPEND HTML RESULTS UNDER THE INPUT FIELD
                     console.log(city);
-                    // console.log(city);
+                    let suggestion = document.createElement('div');
+                    document.forms[0].appendChild(suggestion);
+                    console.warn(`${city.name} ${city.state} ${city.country}`);
+                    suggestion.innerHTML= `${city.name} ${city.state} ${city.country}`;
+
                 } )
 
             }
