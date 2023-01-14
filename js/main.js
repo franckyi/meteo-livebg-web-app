@@ -1,6 +1,7 @@
 import {OPENWEATHER_APIKEY} from './config.js';
 
 // DOM
+const form = document.getElementById('form');
 const inputCity = document.getElementById('input-city');
 const btn = document.getElementById('btn');
 const iconHTML = document.getElementById('weather-icon');
@@ -85,20 +86,35 @@ window.addEventListener('load', () => {
         .then( (response) => response.json() )
         .then( (data) => {
 
-            if (data.length > 2) {
+            let list = document.createElement('ul');
+            form.appendChild(list);
 
-                console.warn(data);
-                console.warn(typeof(data));
+            if (data.length > 0 && data.length < 2) {
+                let suggestion = document.createElement('li');
+                document.forms[0].appendChild(suggestion);
+                console.warn(`${data[0].name} ${data[0].state} ${data[0].country}`);
+                suggestion.innerHTML= `${data[0].name} ${data[0].state} ${data[0].country}`;
+            }
+
+            else {
+
+                // console.warn(data);
+                // console.warn(typeof(data));
 
                 data.forEach( city => {
 
                     // HERE APPEND HTML RESULTS UNDER THE INPUT FIELD
                     console.log(city);
-                    let suggestion = document.createElement('div');
-                    document.forms[0].appendChild(suggestion);
+                    
+                    let suggestion = document.createElement('li');
+
+                    list.appendChild(suggestion);
                     console.warn(`${city.name} ${city.state} ${city.country}`);
                     suggestion.innerHTML= `${city.name} ${city.state} ${city.country}`;
+                } )
 
+                inputCity.addEventListener( 'input', () => {
+                    console.log('RESET LIST');
                 } )
 
             }
