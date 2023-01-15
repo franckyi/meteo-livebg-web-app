@@ -14,6 +14,14 @@ const sunriseHTML = document.querySelector('.sunrise');
 const sunsetHTML = document.querySelector('.sunset');
 let datalist = document.createElement('datalist');
 let Results = [];
+let city;
+let state;
+let country;
+let lat;
+let lon;
+let passedVals = [];
+let cityIndex;
+let entered;
 
 // MANAGE DATE & TIME
 let currentDate = new Date().getDate();
@@ -47,8 +55,8 @@ window.addEventListener('load', () => {
     if(navigator.geolocation) {
         navigator.geolocation.getCurrentPosition( (position) => {
 
-            let lat = position.coords.latitude;
-            let lon = position.coords.longitude;
+            lat = position.coords.latitude;
+            lon = position.coords.longitude;
             const apiByPosition = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${OPENWEATHER_APIKEY}&units=metric`;
             
             fetch(apiByPosition)
@@ -77,7 +85,17 @@ window.addEventListener('load', () => {
     }
 
     inputCity.addEventListener( 'input', () => { 
+
         Results = [];
+        // passedVals = [];
+
+        // console.warn('data = ');
+        // console.info(data);
+        // console.warn('Results = ');
+        // console.info(Results);
+        // console.warn('passedVals = ');
+        // console.info(passedVals);
+
         form.appendChild(datalist);
         datalist.innerHTML = "";   
         datalist.setAttribute('id', 'results');
@@ -85,61 +103,74 @@ window.addEventListener('load', () => {
         fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${inputCity.value}&limit=5&appid=${OPENWEATHER_APIKEY}&units=metric`)
         .then( (response) => response.json() )
         .then( (data) => {
-
-            console.warn('data =');
-            console.log(data);
+            // console.warn('data =');
+            // console.log(data);
 
             if (data.length > 0 && data.length < 2) {
                 let option = document.createElement('option');
                 datalist.appendChild(option);
-                console.log(`${data[0].name ?? ''} ${data[0].state ?? ''} ${data[0].country ?? ''}`);
-
+                // console.log(`${data[0].name ?? ''} ${data[0].state ?? ''} ${data[0].country ?? ''}`);
                 option.setAttribute('value', `${data[0].name ?? ''} ${data[0].state ?? ''} ${data[0].country ?? ''}`);
-                
-                console.warn('option[value] =');
-                console.log(option[value]);
             }
 
-            else if (data.length >= 2) {
-                console.warn('inputCity.value.length =');
-                console.log(inputCity.value.length);
-                
+            else if (data.length >= 2) {   
+
+                // CREATE RESULTS ARRAY
                 data.forEach( city => {        
                     if (city.name.length == inputCity.value.length && city.name.toLowerCase().includes( inputCity.value.toLowerCase() )) {
-                        console.warn('city =');
-                        console.log(city);
-                        console.warn('city.name.length =');
-                        console.log(city.name.length);
-                        
                         Results.push(city);
                     }
                 });
-
-                console.warn('Results =');
-                console.log(Results);
                                 
+                // CREATE OPTIONS IN HTML
                 Results.forEach( (result) => {
                     let option = document.createElement('option');
-                    let value = `${result.name ?? ''} ${result.state ?? ''} ${result.country ?? ''}`;
-                    option.setAttribute('value', value);
+
+                    // MISSING A CONDITION TO CHECK RIGHT result of RESULTS
+
+                    city = result.name ?? '';
+                    state = result.state ?? '';
+                    country = result.country ?? '';
+                    option.setAttribute('value', `${city} ${state} ${country}`);
                     datalist.appendChild(option);
+
                 });
+                
             }
         
         });
-    })
+    });
 
     btn.addEventListener( 'click', (e) => {
         e.preventDefault();
-        datalist.innerHTML = "";
-        let city = inputCity.value; 
-        let lat, lon;
-        document.forms[0].reset();
-        
-        console.warn(`input = ${city}`);
 
-        const apiByCity = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${OPENWEATHER_APIKEY}&units=metric`;
-        // const apiByCity = `http://api.openweathermap.org/geo/1.0/direct?q=${city},{state code},{country code}&appid=${OPENWEATHER_APIKEY}&units=metric`;
+        for (let i = 0; i < datalist.childNodes.length; i++) {
+            console.warn(datalist.childNodes[i].value);
+            passedVals.push(datalist.childNodes[i].value);
+        }
+
+        // console.warn('passedVals =');
+        // console.info(passedVals);
+        
+
+        datalist.innerHTML = "";
+        entered = inputCity.value; 
+        document.forms[0].reset();
+
+        // console.warn('values 1 =');
+        // console.info(city, state, country);
+        console.warn(`entered = ${entered}`);
+    
+        for (let i = 0; i < passedVals.length; i++) {
+            if (passedVals[i] == entered) {
+                console.warn('MATCHED INPUT!!')
+                cityIndex = i;
+            }
+        }
+        
+
+        // const apiByCity = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${OPENWEATHER_APIKEY}&units=metric`;
+        const apiByCity = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&${state}&${country}&appid=${OPENWEATHER_APIKEY}&units=metric`;
         
         // Check data.length
         fetch(apiByCity)
@@ -148,24 +179,31 @@ window.addEventListener('load', () => {
             if (data.length > 0 && data.length < 2) {
                 lat = data[0].lat;
                 lon = data[0].lon;
-
-                // console.warn( 'fetch city OK', 'length = ' + data.length, lat,lon )
-                // console.info(data);
-    
                 return fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${OPENWEATHER_APIKEY}&units=metric`);
-            } else {
+            } 
+            else if (data.length >= 2) {
 
-                lat = data[0].lat;
-                lon = data[0].lon;
+                console.warn( 'data =' )
+                console.log(data)
+
+                for (let i = 0; i < data.length; i++) {
+                    console.warn('iteration');
+                    if (`${data[i].name} ${data[i].state} ${data[i].country}` === entered ) {
+                        console.log('MATCH');
+                        cityIndex = i;
+                    }
+                }
+                
+
+                lat = data[cityIndex].lat; // PASS APPROPRIATE INDEX
+                console.log(data[cityIndex].lat);
+                lon = data[cityIndex].lon; // AND LON
     
                 console.warn( 'fetch city OK', 'length = ' + data.length, lat,lon )
                 console.info(data);
     
-    
                 return fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${OPENWEATHER_APIKEY}&units=metric`);
             }
-            
-
 
         })
                 .then( (response) => response.json() )
