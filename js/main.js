@@ -102,7 +102,7 @@ window.addEventListener('load', () => {
                 li.innerHTML= `${data[0].name ?? ''} ${data[0].state ?? ''} ${data[0].country ?? ''}`;
             }
 
-            else {
+            else if (data.length >= 2) {
                 data.forEach( city => {        
                     Results.push(city);
                 });
