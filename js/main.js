@@ -1,4 +1,4 @@
-import {OPENWEATHER_APIKEY} from './config.js';
+import {OPENWEATHER_APIKEY} from '../js/config.js';
 
 // DOM
 const form = document.getElementById('form');
