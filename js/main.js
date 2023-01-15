@@ -12,7 +12,7 @@ const tempMin = document.querySelector('.min');
 const tempMax = document.querySelector('.max');
 const sunriseHTML = document.querySelector('.sunrise');
 const sunsetHTML = document.querySelector('.sunset');
-let ul = document.createElement('ul');
+let datalist = document.createElement('datalist');
 let Results = [];
 
 // MANAGE DATE & TIME
@@ -78,8 +78,9 @@ window.addEventListener('load', () => {
 
     inputCity.addEventListener( 'input', () => { 
         Results = [];
-        ul.innerHTML = "";               
-        form.appendChild(ul);
+        form.appendChild(datalist);
+        datalist.innerHTML = "";   
+        datalist.setAttribute('id', 'results');
 
         fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${inputCity.value}&limit=5&appid=${OPENWEATHER_APIKEY}&units=metric`)
         .then( (response) => response.json() )
@@ -89,10 +90,14 @@ window.addEventListener('load', () => {
             console.log(data);
 
             if (data.length > 0 && data.length < 2) {
-                let li = document.createElement('li');
-                ul.appendChild(li);
+                let option = document.createElement('option');
+                datalist.appendChild(option);
                 console.log(`${data[0].name ?? ''} ${data[0].state ?? ''} ${data[0].country ?? ''}`);
-                li.innerHTML= `${data[0].name ?? ''} ${data[0].state ?? ''} ${data[0].country ?? ''}`;
+
+                option.setAttribute('value', `${data[0].name ?? ''} ${data[0].state ?? ''} ${data[0].country ?? ''}`);
+                
+                console.warn('option[value] =');
+                console.log(option[value]);
             }
 
             else if (data.length >= 2) {
@@ -114,10 +119,10 @@ window.addEventListener('load', () => {
                 console.log(Results);
                                 
                 Results.forEach( (result) => {
-                    let li = document.createElement('li');
+                    let option = document.createElement('option');
                     let value = `${result.name ?? ''} ${result.state ?? ''} ${result.country ?? ''}`;
-                    li.innerHTML = value;
-                    ul.appendChild(li);
+                    option.setAttribute('value', value);
+                    datalist.appendChild(option);
                 });
             }
         
@@ -126,7 +131,7 @@ window.addEventListener('load', () => {
 
     btn.addEventListener( 'click', (e) => {
         e.preventDefault();
-        ul.innerHTML = "";
+        datalist.innerHTML = "";
         let city = inputCity.value; 
         let lat, lon;
         document.forms[0].reset();
