@@ -126,6 +126,7 @@ window.addEventListener('load', () => {
 
     btn.addEventListener( 'click', (e) => {
         e.preventDefault();
+        ul.innerHTML = "";
         let city = inputCity.value; 
         let lat, lon;
         document.forms[0].reset();
