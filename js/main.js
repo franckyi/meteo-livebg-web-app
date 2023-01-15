@@ -81,13 +81,6 @@ window.addEventListener('load', () => {
         ul.innerHTML = "";               
         form.appendChild(ul);
 
-        /* IN THIS FUNCTION ONLY CHECK LIST OF CITIES
-           & DISPLAY IT */
-        
-        // console.warn('inputCity =');
-        // console.log(inputCity.value);
-
-        // fetch current input value
         fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${inputCity.value}&limit=5&appid=${OPENWEATHER_APIKEY}&units=metric`)
         .then( (response) => response.json() )
         .then( (data) => {
@@ -97,14 +90,24 @@ window.addEventListener('load', () => {
 
             if (data.length > 0 && data.length < 2) {
                 let li = document.createElement('li');
-                document.forms[0].appendChild(li);
+                ul.appendChild(li);
                 console.log(`${data[0].name ?? ''} ${data[0].state ?? ''} ${data[0].country ?? ''}`);
                 li.innerHTML= `${data[0].name ?? ''} ${data[0].state ?? ''} ${data[0].country ?? ''}`;
             }
 
             else if (data.length >= 2) {
+                console.warn('inputCity.value.length =');
+                console.log(inputCity.value.length);
+                
                 data.forEach( city => {        
-                    Results.push(city);
+                    if (city.name.length == inputCity.value.length && city.name.toLowerCase().includes( inputCity.value.toLowerCase() )) {
+                        console.warn('city =');
+                        console.log(city);
+                        console.warn('city.name.length =');
+                        console.log(city.name.length);
+                        
+                        Results.push(city);
+                    }
                 });
 
                 console.warn('Results =');
