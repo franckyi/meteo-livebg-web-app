@@ -84,6 +84,7 @@ window.addEventListener('load', () => {
 
     }
 
+    // ENTER CHARACTER
     inputCity.addEventListener( 'input', () => { 
         Results = [];
 
@@ -114,15 +115,11 @@ window.addEventListener('load', () => {
                 // CREATE OPTIONS IN HTML
                 Results.forEach( (result) => {
                     let option = document.createElement('option');
-
-                    // MISSING A CONDITION TO CHECK RIGHT result of RESULTS
-
                     city = result.name ?? '';
                     state = result.state ?? '';
                     country = result.country ?? '';
                     option.setAttribute('value', `${city} ${state} ${country}`);
                     datalist.appendChild(option);
-
                 });
                 
             }
@@ -130,6 +127,7 @@ window.addEventListener('load', () => {
         });
     });
 
+    // CONFIRM INPUT VALUE
     btn.addEventListener( 'click', (e) => {
         e.preventDefault();
 
@@ -154,10 +152,13 @@ window.addEventListener('load', () => {
         // const apiByCity = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${OPENWEATHER_APIKEY}&units=metric`;
         const apiByCity = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&${state}&${country}&appid=${OPENWEATHER_APIKEY}&units=metric`;
         
-        // Check data.length
         fetch(apiByCity)
         .then( (response) => response.json() )
         .then( (data) => {
+
+            console.warn( 'TEST data=' )
+            console.log(data)
+
             if (data.length > 0 && data.length < 2) {
                 lat = data[0].lat;
                 lon = data[0].lon;
@@ -165,9 +166,7 @@ window.addEventListener('load', () => {
             } 
 
             else if (data.length >= 2) {
-                console.warn( 'data =' )
-                console.log(data)
-
+                
                 for (let i = 0; i < data.length; i++) {
                     console.warn('iteration');
                     if (`${data[i].name} ${data[i].state} ${data[i].country}` === entered ) {
@@ -176,14 +175,13 @@ window.addEventListener('load', () => {
                     }
                 }
                 
+                lat = data[cityIndex].lat;
+                lon = data[cityIndex].lon;
 
-                lat = data[cityIndex].lat; // PASS APPROPRIATE INDEX
                 console.log(data[cityIndex].lat);
-                lon = data[cityIndex].lon; // AND LON
-    
                 console.warn( 'fetch city OK', 'length = ' + data.length, lat,lon )
                 console.info(data);
-    
+
                 return fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${OPENWEATHER_APIKEY}&units=metric`);
             }
 

@@ -55,16 +55,6 @@ main {
     font-size: 1.5rem;
   }
 }
-article {
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  background: rgba(70, 192, 233, 0.5411764706);
-  border-radius: 25px;
-  border: 1px solid #4fa4d0;
-  box-shadow: 0 0 46px;
-}
 
 @media screen and (orientation: landscape) {
   article {
@@ -115,14 +105,6 @@ article {
   margin-left: 15px;
 }
 
-/*# sourceMappingURL=style.scss.map */
-/*# sourceMappingURL=style.scss.map */
-/*# sourceMappingURL=style.scss.map */
-/*# sourceMappingURL=style.scss.map */
-/*# sourceMappingURL=style.scss.map */
-/*# sourceMappingURL=style.scss.map */
-/*# sourceMappingURL=style.scss.map */
-/*# sourceMappingURL=style.scss.map */
-/*# sourceMappingURL=style.scss.map */
-
-/*# sourceMappingURL=style.scss.map */
+input {
+  width: 100%;
+}
