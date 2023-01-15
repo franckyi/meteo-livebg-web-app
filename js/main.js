@@ -79,6 +79,7 @@ window.addEventListener('load', () => {
         /* IN THIS FUNCTION ONLY CHECK LIST OF CITIES
            & DISPLAY IT */
         
+        console.warn('inputCity =');
         console.log(inputCity.value);
 
         // fetch current input value
@@ -86,37 +87,40 @@ window.addEventListener('load', () => {
         .then( (response) => response.json() )
         .then( (data) => {
 
-            let list = document.createElement('ul');
-            form.appendChild(list);
+            let ul = document.createElement('ul');
+            form.appendChild(ul);
+            
+            // TODO: RESET LIST
+            // inputCity.addEventListener( 'input', () => {
+            //     console.log('RESET LIST');
+            // } )
+
+        //     if (list.length > 0) {
+        //         console.warn('list pieno');
+        //     } else {
+        //     console.warn('list vuoto');
+        // }
 
             if (data.length > 0 && data.length < 2) {
-                let suggestion = document.createElement('li');
-                document.forms[0].appendChild(suggestion);
+                let result = document.createElement('li');
+                document.forms[0].appendChild(result);
                 console.warn(`${data[0].name} ${data[0].state} ${data[0].country}`);
-                suggestion.innerHTML= `${data[0].name} ${data[0].state} ${data[0].country}`;
+                result.innerHTML= `${data[0].name} ${data[0].state} ${data[0].country}`;
             }
 
             else {
-
-                // console.warn(data);
-                // console.warn(typeof(data));
-
-                data.forEach( city => {
-
-                    // HERE APPEND HTML RESULTS UNDER THE INPUT FIELD
-                    console.log(city);
-                    
-                    let suggestion = document.createElement('li');
-
-                    list.appendChild(suggestion);
-                    console.warn(`${city.name} ${city.state} ${city.country}`);
-                    suggestion.innerHTML= `${city.name} ${city.state} ${city.country}`;
-                } )
-
-                inputCity.addEventListener( 'input', () => {
-                    console.log('RESET LIST');
-                } )
-
+                let Results = [];
+                data.forEach( city => {        
+                    Results.push(city);
+                });
+                
+                // TODO: REPLACE UL LI TAGS
+                Results.forEach( (result) => {
+                    let li = document.createElement('li');
+                    let value = `${result.name ?? ''} ${result.state ?? ''} ${result.country ?? ''}`;
+                    li.innerHTML = value;
+                    ul.appendChild(li);
+                });
             }
         
         });
