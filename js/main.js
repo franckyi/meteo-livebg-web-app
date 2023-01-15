@@ -52,7 +52,7 @@ document.getElementById('date').innerHTML = today;
 window.addEventListener('load', () => {
     
     // Fetch location only after allowing access to position in the browser 
-    if(navigator.geolocation) {
+    if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition( (position) => {
 
             lat = position.coords.latitude;
@@ -85,16 +85,7 @@ window.addEventListener('load', () => {
     }
 
     inputCity.addEventListener( 'input', () => { 
-
         Results = [];
-        // passedVals = [];
-
-        // console.warn('data = ');
-        // console.info(data);
-        // console.warn('Results = ');
-        // console.info(Results);
-        // console.warn('passedVals = ');
-        // console.info(passedVals);
 
         form.appendChild(datalist);
         datalist.innerHTML = "";   
@@ -103,8 +94,6 @@ window.addEventListener('load', () => {
         fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${inputCity.value}&limit=5&appid=${OPENWEATHER_APIKEY}&units=metric`)
         .then( (response) => response.json() )
         .then( (data) => {
-            // console.warn('data =');
-            // console.log(data);
 
             if (data.length > 0 && data.length < 2) {
                 let option = document.createElement('option');
@@ -149,16 +138,10 @@ window.addEventListener('load', () => {
             passedVals.push(datalist.childNodes[i].value);
         }
 
-        // console.warn('passedVals =');
-        // console.info(passedVals);
-        
-
         datalist.innerHTML = "";
-        entered = inputCity.value; 
+        entered = inputCity.value.replaceAll('  ', ' '); 
         document.forms[0].reset();
 
-        // console.warn('values 1 =');
-        // console.info(city, state, country);
         console.warn(`entered = ${entered}`);
     
         for (let i = 0; i < passedVals.length; i++) {
@@ -167,7 +150,6 @@ window.addEventListener('load', () => {
                 cityIndex = i;
             }
         }
-        
 
         // const apiByCity = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${OPENWEATHER_APIKEY}&units=metric`;
         const apiByCity = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&${state}&${country}&appid=${OPENWEATHER_APIKEY}&units=metric`;
@@ -181,8 +163,8 @@ window.addEventListener('load', () => {
                 lon = data[0].lon;
                 return fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${OPENWEATHER_APIKEY}&units=metric`);
             } 
-            else if (data.length >= 2) {
 
+            else if (data.length >= 2) {
                 console.warn( 'data =' )
                 console.log(data)
 
@@ -206,24 +188,24 @@ window.addEventListener('load', () => {
             }
 
         })
-                .then( (response) => response.json() )
-                .then( (data) => {
-                    let location = data.name;
-                    let {temp, temp_min, temp_max} = data.main;
-                    let {description, icon} = data.weather[0];
-                    let {sunrise, sunset} = data.sys;
-                    let iconUrl = `http://openweathermap.org/img/wn/${icon}@2x.png`;
-                    let sunriseGMT = new Date(sunrise * 1000);
-                    let sunsetGMT = new Date(sunset * 1000);
-                    iconHTML.src = iconUrl;
-                    loc.textContent = `${location}`;
-                    desc.textContent = `${description}`;
-                    tempC.textContent = `${temp.toFixed(1)} °C`;
-                    tempMin.textContent = `min ${temp_min.toFixed(1)} °C`;
-                    tempMax.textContent = `max ${temp_max.toFixed(1)} °C`;
-                    sunriseHTML.textContent = `${sunriseGMT.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'} )}`;
-                    sunsetHTML.textContent = `${sunsetGMT.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'} )}`;
-            });
+        .then( (response) => response.json() )
+        .then( (data) => {
+            let location = data.name;
+            let {temp, temp_min, temp_max} = data.main;
+            let {description, icon} = data.weather[0];
+            let {sunrise, sunset} = data.sys;
+            let iconUrl = `http://openweathermap.org/img/wn/${icon}@2x.png`;
+            let sunriseGMT = new Date(sunrise * 1000);
+            let sunsetGMT = new Date(sunset * 1000);
+            iconHTML.src = iconUrl;
+            loc.textContent = `${location}`;
+            desc.textContent = `${description}`;
+            tempC.textContent = `${temp.toFixed(1)} °C`;
+            tempMin.textContent = `min ${temp_min.toFixed(1)} °C`;
+            tempMax.textContent = `max ${temp_max.toFixed(1)} °C`;
+            sunriseHTML.textContent = `${sunriseGMT.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'} )}`;
+            sunsetHTML.textContent = `${sunsetGMT.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'} )}`;
+        });
 
     });
 
