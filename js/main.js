@@ -12,6 +12,8 @@ const tempMin = document.querySelector('.min');
 const tempMax = document.querySelector('.max');
 const sunriseHTML = document.querySelector('.sunrise');
 const sunsetHTML = document.querySelector('.sunset');
+let ul = document.createElement('ul');
+let Results = [];
 
 // MANAGE DATE & TIME
 let currentDate = new Date().getDate();
@@ -74,47 +76,40 @@ window.addEventListener('load', () => {
 
     }
 
-    inputCity.addEventListener( 'input', () => {
+    inputCity.addEventListener( 'input', () => { 
+        Results = [];
+        ul.innerHTML = "";               
+        form.appendChild(ul);
 
         /* IN THIS FUNCTION ONLY CHECK LIST OF CITIES
            & DISPLAY IT */
         
-        console.warn('inputCity =');
-        console.log(inputCity.value);
+        // console.warn('inputCity =');
+        // console.log(inputCity.value);
 
         // fetch current input value
         fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${inputCity.value}&limit=5&appid=${OPENWEATHER_APIKEY}&units=metric`)
         .then( (response) => response.json() )
         .then( (data) => {
 
-            let ul = document.createElement('ul');
-            form.appendChild(ul);
-            
-            // TODO: RESET LIST
-            // inputCity.addEventListener( 'input', () => {
-            //     console.log('RESET LIST');
-            // } )
-
-        //     if (list.length > 0) {
-        //         console.warn('list pieno');
-        //     } else {
-        //     console.warn('list vuoto');
-        // }
+            console.warn('data =');
+            console.log(data);
 
             if (data.length > 0 && data.length < 2) {
-                let result = document.createElement('li');
-                document.forms[0].appendChild(result);
-                console.warn(`${data[0].name} ${data[0].state} ${data[0].country}`);
-                result.innerHTML= `${data[0].name} ${data[0].state} ${data[0].country}`;
+                let li = document.createElement('li');
+                document.forms[0].appendChild(li);
+                console.log(`${data[0].name ?? ''} ${data[0].state ?? ''} ${data[0].country ?? ''}`);
+                li.innerHTML= `${data[0].name ?? ''} ${data[0].state ?? ''} ${data[0].country ?? ''}`;
             }
 
             else {
-                let Results = [];
                 data.forEach( city => {        
                     Results.push(city);
                 });
-                
-                // TODO: REPLACE UL LI TAGS
+
+                console.warn('Results =');
+                console.log(Results);
+                                
                 Results.forEach( (result) => {
                     let li = document.createElement('li');
                     let value = `${result.name ?? ''} ${result.state ?? ''} ${result.country ?? ''}`;
