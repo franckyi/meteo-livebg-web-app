@@ -165,7 +165,7 @@ window.addEventListener('load', () => {
                 return fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${OPENWEATHER_APIKEY}&units=metric`);
             } 
 
-            else if (data.length >= 2) {
+            else if (data.length > 1) {
                 
                 for (let i = 0; i < data.length; i++) {
                     console.warn('iteration');
