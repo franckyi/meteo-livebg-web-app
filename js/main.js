@@ -12,8 +12,10 @@ const tempMin = document.querySelector('.min');
 const tempMax = document.querySelector('.max');
 const sunriseHTML = document.querySelector('.sunrise');
 const sunsetHTML = document.querySelector('.sunset');
+
 let datalist = document.createElement('datalist');
 let Results = [];
+
 let city;
 let state;
 let country;
