@@ -23,6 +23,8 @@ let passedVals = [];
 let cityIndex;
 let entered;
 
+let test;
+
 // MANAGE DATE & TIME
 let currentDate = new Date().getDate();
 let currentMonth = new Date().getMonth();
@@ -103,7 +105,7 @@ window.addEventListener('load', () => {
                 option.setAttribute('value', `${data[0].name ?? ''} ${data[0].state ?? ''} ${data[0].country ?? ''}`);
             }
 
-            else if (data.length >= 2) {   
+            else if (data.length > 1) {   
 
                 // CREATE RESULTS ARRAY
                 data.forEach( city => {        
@@ -113,13 +115,14 @@ window.addEventListener('load', () => {
                 });
                                 
                 // CREATE OPTIONS IN HTML
-                Results.forEach( (result) => {
+                Results.forEach( (result, index) => {
                     let option = document.createElement('option');
                     city = result.name ?? '';
                     state = result.state ?? '';
                     country = result.country ?? '';
                     option.setAttribute('value', `${city} ${state} ${country}`);
                     datalist.appendChild(option);
+                    test = result[index];
                 });
                 
             }
@@ -130,6 +133,9 @@ window.addEventListener('load', () => {
     // CONFIRM INPUT VALUE
     btn.addEventListener( 'click', (e) => {
         e.preventDefault();
+
+        console.log(city);
+        console.log(test);
 
         for (let i = 0; i < datalist.childNodes.length; i++) {
             console.warn(datalist.childNodes[i].value);
