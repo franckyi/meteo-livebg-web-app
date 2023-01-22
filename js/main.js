@@ -18,7 +18,7 @@ let Results = [];
 let passedVals = [];
 let cityIndex;
 let queryPosition = {
-    name: '',
+    name: undefined,
     state: undefined,
     country: undefined,
     lat: undefined,
@@ -46,10 +46,10 @@ let currentYear = new Date().getFullYear();
 let hour = new Date().getHours();
 let minutes = new Date().getMinutes();
 minutes = minutes < 10 ? `0${minutes}` : minutes;
-let today = `${currentDate} ${months[currentMonth]} ${currentYear}`;
-let time = `${hour}:${minutes}`;
-document.getElementById('time').innerHTML = time;
-document.getElementById('date').innerHTML = today;
+const time = document.getElementById('time');
+const today = document.getElementById('date');
+time.innerHTML = `${hour}:${minutes}`;
+today.innerHTML = `${currentDate} ${months[currentMonth]} ${currentYear}`;
 
 // window.addEventListener('load', () => {
     
@@ -89,8 +89,8 @@ document.getElementById('date').innerHTML = today;
 const fetchInput = function(queryPosition) {
     queryPosition.name = inputCity.value;
 
-    console.warn('queryPosition');
-    console.log(queryPosition);
+    // console.warn('queryPosition');
+    // console.log(queryPosition);
     fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${queryPosition.name}&limit=5&appid=${OPENWEATHER_APIKEY}&units=metric`)
     .then( (response) => response.json() )
     .then( (data) => {
@@ -104,7 +104,7 @@ const fetchInput = function(queryPosition) {
             option.setAttribute('value', `${data[0].name ?? ''} ${data[0].state ?? ''} ${data[0].country ?? ''}`);
         }
 
-        else if (data.length > 1 && data.length !== undefined) {
+        else if (data.length > 1) {
             // CREATE ARRAY OF RESULTS
             data.forEach( city => {        
                 Results.push(city);
@@ -126,13 +126,10 @@ const fetchInput = function(queryPosition) {
 // UPDATE INPUT VALUE WHEN TYPING
 inputCity.addEventListener( 'input', () => {
     Results = [];
-
     form.appendChild(datalist);
     datalist.innerHTML = "";   
     datalist.setAttribute('id', 'results');
-
     queryPosition.name = inputCity.value;
-    
     fetchInput(queryPosition);
 });
 
@@ -143,17 +140,22 @@ btn.addEventListener( 'click', (e) => {
 
     // CHECK THIS LOOP AGAINST ENTERED/INPUT VALUE
     for (let i = 0; i < datalist.childNodes.length; i++) {
-        console.warn(datalist.childNodes[i].value);
+        console.warn('passedVals');
+        console.log(datalist.childNodes[i].value);
+        console.log(datalist);
         passedVals.push(datalist.childNodes[i].value);
     }
 
     datalist.innerHTML = "";
-    queryPosition.name = inputCity.value.replaceAll('  ', ' '); 
+    queryPosition.name = inputCity.value.replaceAll('  ', ' ').trim(); 
     document.forms[0].reset();
 
     console.warn(`entered = ${queryPosition.name}`);
+    console.warn('regex:');
+    console.log(queryPosition.name);
 
     for (let i = 0; i < passedVals.length; i++) {
+        const regex = queryPosition.name;
         if (passedVals[i] == queryPosition.name) {
             console.warn('MATCHED INPUT!!')
             cityIndex = i;
@@ -161,9 +163,9 @@ btn.addEventListener( 'click', (e) => {
     }
 
     // SIMPLE SEARCH const apiByCity = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${OPENWEATHER_APIKEY}&units=metric`;
-    const apiByCity = `http://api.openweathermap.org/geo/1.0/direct?q=${queryPosition.name}&limit=5&${queryPosition.state}&${queryPosition.country}&appid=${OPENWEATHER_APIKEY}&units=metric`;
+    const apiByQuery = `http://api.openweathermap.org/geo/1.0/direct?q=${queryPosition.name}&limit=5&${queryPosition.state}&${queryPosition.country}&appid=${OPENWEATHER_APIKEY}&units=metric`;
     
-    fetch(apiByCity)
+    fetch(apiByQuery)
     .then( (response) => response.json() )
     .then( (data) => {
 
