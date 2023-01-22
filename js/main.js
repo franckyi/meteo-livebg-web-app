@@ -84,19 +84,13 @@ if (navigator.geolocation) {
         queryPosition.lat = position.coords.latitude;
         queryPosition.lon = position.coords.longitude;
         const apiByPosition = `https://api.openweathermap.org/data/2.5/weather?lat=${queryPosition.lat}&lon=${queryPosition.lon}&appid=${OPENWEATHER_APIKEY}&units=metric`;
-        
         fetchPosition(apiByPosition);
     })
-
     console.warn( 'fetch location OK' )
-
 }
 
 const fetchInput = function(queryPosition) {
     queryPosition.name = inputCity.value;
-
-    // console.warn('queryPosition');
-    // console.log(queryPosition);
     fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${queryPosition.name}&limit=5&appid=${OPENWEATHER_APIKEY}&units=metric`)
     .then( (response) => response.json() )
     .then( (data) => {
@@ -104,9 +98,6 @@ const fetchInput = function(queryPosition) {
         console.log(queryPosition);
 
         data.forEach( d => { optionsCaptured.push(d) } );
-        
-        console.warn('optionsCaptured 1:');
-        console.log(optionsCaptured);
 
         console.warn('data');
         console.log(data);
@@ -143,20 +134,25 @@ inputCity.addEventListener( 'input', () => {
     Results = [];
 
     // BEFORE EMPTY GET LAST VAL OF MATCHED OPTION
-    console.warn('optionsCaptured NUOVO');
-    console.log(optionsCaptured);
-
     regex = inputCity.value.toLowerCase().replaceAll('  ',' ');
     console.warn('regex');
     console.log(regex);
-    optionsCaptured.forEach( o => {    
+
+    optionsCaptured.forEach( o => {   
+        
+        console.warn('optionsCaptured BEFORE GETTING VAL');
+        console.log(optionsCaptured);
+
         const current = `${o.name} ${o.state} ${o.country}`;
         console.warn('current.toLowerCase()');
         console.log(current.toLowerCase());
+
         if ( current.toLowerCase().includes(regex) ) {
             console.warn('MATCH');
+            console.log(`${queryPosition.lat} ${queryPosition.lon}`);
             queryPosition.lat = o.lat;
             queryPosition.lon = o.lon;
+            fetchPosition(`https://api.openweathermap.org/data/2.5/weather?lat=${queryPosition.lat}&lon=${queryPosition.lon}&appid=${OPENWEATHER_APIKEY}&units=metric`);
         }
     })
 
@@ -170,8 +166,6 @@ inputCity.addEventListener( 'input', () => {
     datalist.setAttribute('id', 'results');
     queryPosition.name = inputCity.value;
     fetchInput(queryPosition);
-    console.warn('optionsCaptured 2:');
-    console.log(optionsCaptured);
 });
 
 
