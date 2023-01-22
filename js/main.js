@@ -12,6 +12,7 @@ const tempMin = document.querySelector('.min');
 const tempMax = document.querySelector('.max');
 const sunriseHTML = document.querySelector('.sunrise');
 const sunsetHTML = document.querySelector('.sunset');
+let regex;
 
 let datalist = document.createElement('datalist');
 let Results = [];
@@ -24,6 +25,7 @@ let queryPosition = {
     lat: undefined,
     lon: undefined,
 } 
+let optionsCaptured = [];
 
 // MANAGE DATE & TIME
 let currentDate = new Date().getDate();
@@ -54,37 +56,37 @@ today.innerHTML = `${currentDate} ${months[currentMonth]} ${currentYear}`;
 // window.addEventListener('load', () => {
     
 // FETCH BY LOCATION 
-// if (navigator.geolocation) {
-//     navigator.geolocation.getCurrentPosition( (position) => {
-//         queryPosition.lat = position.coords.latitude;
-//         queryPosition.lon = position.coords.longitude;
-//         const apiByPosition = `https://api.openweathermap.org/data/2.5/weather?lat=${queryPosition.lat}&lon=${queryPosition.lon}&appid=${OPENWEATHER_APIKEY}&units=metric`;
+if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition( (position) => {
+        queryPosition.lat = position.coords.latitude;
+        queryPosition.lon = position.coords.longitude;
+        const apiByPosition = `https://api.openweathermap.org/data/2.5/weather?lat=${queryPosition.lat}&lon=${queryPosition.lon}&appid=${OPENWEATHER_APIKEY}&units=metric`;
         
-//         fetch(apiByPosition)
-//             .then( (response) => response.json() )
-//             .then( (data) => {
-//                 let location = data.name;
-//                 let {temp, temp_min, temp_max} = data.main;
-//                 let {description, icon} = data.weather[0];
-//                 let {sunrise, sunset} = data.sys;
-//                 let iconUrl = `http://openweathermap.org/img/wn/${icon}@2x.png`;
-//                 let sunriseGMT = new Date(sunrise * 1000);
-//                 let sunsetGMT = new Date(sunset * 1000);
-//                 iconHTML.src = iconUrl;
-//                 loc.textContent = `${location}`;
-//                 desc.textContent = `${description}`;
-//                 tempC.textContent = `${temp.toFixed(1)} °C`;
-//                 tempMin.textContent = `min ${temp_min.toFixed(1)} °C`;
-//                 tempMax.textContent = `max ${temp_max.toFixed(1)} °C`;
-//                 sunriseHTML.textContent = `${sunriseGMT.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'} )}`;
-//                 sunsetHTML.textContent = `${sunsetGMT.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'} )}`;
-//             }
-//         );
-//     })
+        fetch(apiByPosition)
+            .then( (response) => response.json() )
+            .then( (data) => {
+                let location = data.name;
+                let {temp, temp_min, temp_max} = data.main;
+                let {description, icon} = data.weather[0];
+                let {sunrise, sunset} = data.sys;
+                let iconUrl = `http://openweathermap.org/img/wn/${icon}@2x.png`;
+                let sunriseGMT = new Date(sunrise * 1000);
+                let sunsetGMT = new Date(sunset * 1000);
+                iconHTML.src = iconUrl;
+                loc.textContent = `${location}`;
+                desc.textContent = `${description}`;
+                tempC.textContent = `${temp.toFixed(1)} °C`;
+                tempMin.textContent = `min ${temp_min.toFixed(1)} °C`;
+                tempMax.textContent = `max ${temp_max.toFixed(1)} °C`;
+                sunriseHTML.textContent = `${sunriseGMT.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'} )}`;
+                sunsetHTML.textContent = `${sunsetGMT.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'} )}`;
+            }
+        );
+    })
 
-//     console.warn( 'fetch location OK' )
+    console.warn( 'fetch location OK' )
 
-// }
+}
 
 const fetchInput = function(queryPosition) {
     queryPosition.name = inputCity.value;
@@ -96,6 +98,11 @@ const fetchInput = function(queryPosition) {
     .then( (data) => {
         console.warn('queryPosition');
         console.log(queryPosition);
+
+        data.forEach( d => { optionsCaptured.push(d) } );
+        
+        console.warn('optionsCaptured 1:');
+        console.log(optionsCaptured);
 
         console.warn('data');
         console.log(data);
@@ -130,15 +137,40 @@ const fetchInput = function(queryPosition) {
 // UPDATE INPUT VALUE WHEN TYPING
 inputCity.addEventListener( 'input', () => {
     Results = [];
+
+    // BEFORE EMPTY GET LAST VAL OF MATCHED OPTION
+    console.warn('optionsCaptured NUOVO');
+    console.log(optionsCaptured);
+
+    regex = inputCity.value.toLowerCase().replaceAll('  ',' ');
+    console.warn('regex');
+    console.log(regex);
+    optionsCaptured.forEach( o => {    
+        const current = `${o.name} ${o.state} ${o.country}`;
+        console.warn('current.toLowerCase()');
+        console.log(current.toLowerCase());
+        if ( current.toLowerCase().includes(regex) ) {
+            console.warn('MATCH');
+            queryPosition.lat = o.lat;
+            queryPosition.lon = o.lon;
+        }
+    })
+
+    console.warn('queryPosition');
+    console.log(queryPosition);
+
+
+    optionsCaptured = [];
     form.appendChild(datalist);
     datalist.innerHTML = "";   
     datalist.setAttribute('id', 'results');
     queryPosition.name = inputCity.value;
     fetchInput(queryPosition);
+    console.warn('optionsCaptured 2:');
+    console.log(optionsCaptured);
 });
 
-console.warn('options');
-console.log(options);
+
 
 
 // CONFIRM CURRENT INPUT VALUE
@@ -158,22 +190,21 @@ btn.addEventListener( 'click', (e) => {
     document.forms[0].reset();
 
     console.warn(`entered = ${queryPosition.name}`);
-    console.warn('regex:');
-    console.log(queryPosition.name);
-    console.warn('Results');
-    console.log(Results);
+    // console.warn('regex:');
+    // console.log(queryPosition.name);
+    // console.warn('Results');
+    // console.log(Results);
 
     // GET SELECTED OPTION HERE
     for (let i = 0; i < options.length; i++) {
-        const regex = queryPosition.name.toLowerCase();
         if (options[i].toLowerCase().includes(regex)) {
             console.warn('MATCHED INPUT!!')
             cityIndex = i;
         }
-        console.warn('options[i]');
-        console.log(options[i]);
-        console.warn('cityIndex');
-        console.log(cityIndex);
+        // console.warn('options[i]');
+        // console.log(options[i]);
+        // console.warn('cityIndex');
+        // console.log(cityIndex);
     }
     datalist.innerHTML = "";
 
