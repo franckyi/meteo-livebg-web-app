@@ -21,11 +21,10 @@ let state;
 let country;
 let lat;
 let lon;
+
 let passedVals = [];
 let cityIndex;
 let entered;
-
-let test;
 
 // MANAGE DATE & TIME
 let currentDate = new Date().getDate();
@@ -111,20 +110,19 @@ window.addEventListener('load', () => {
 
                 // CREATE RESULTS ARRAY
                 data.forEach( city => {        
-                    if (city.name.length == inputCity.value.length && city.name.toLowerCase().includes( inputCity.value.toLowerCase() )) {
+                    // if (city.name.length == inputCity.value.length && city.name.toLowerCase().includes( inputCity.value.toLowerCase() )) {
                         Results.push(city);
-                    }
+                    // }
                 });
                                 
                 // CREATE OPTIONS IN HTML
-                Results.forEach( (result, index) => {
+                Results.forEach( (result) => {
                     let option = document.createElement('option');
                     city = result.name ?? '';
                     state = result.state ?? '';
                     country = result.country ?? '';
                     option.setAttribute('value', `${city} ${state} ${country}`);
                     datalist.appendChild(option);
-                    test = result[index];
                 });
                 
             }
@@ -136,9 +134,7 @@ window.addEventListener('load', () => {
     btn.addEventListener( 'click', (e) => {
         e.preventDefault();
 
-        console.log(city);
-        console.log(test);
-
+        // CHECK THIS LOOP AGAINST ENTERED/INPUT VALUE
         for (let i = 0; i < datalist.childNodes.length; i++) {
             console.warn(datalist.childNodes[i].value);
             passedVals.push(datalist.childNodes[i].value);
@@ -164,9 +160,6 @@ window.addEventListener('load', () => {
         .then( (response) => response.json() )
         .then( (data) => {
 
-            console.warn( 'TEST data=' )
-            console.log(data)
-
             if (data.length > 0 && data.length < 2) {
                 lat = data[0].lat;
                 lon = data[0].lon;
@@ -176,9 +169,7 @@ window.addEventListener('load', () => {
             else if (data.length > 1) {
                 
                 for (let i = 0; i < data.length; i++) {
-                    console.warn('iteration');
                     if (`${data[i].name} ${data[i].state} ${data[i].country}` === entered ) {
-                        console.log('MATCH');
                         cityIndex = i;
                     }
                 }
