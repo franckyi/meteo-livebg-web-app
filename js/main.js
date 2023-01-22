@@ -55,6 +55,29 @@ today.innerHTML = `${currentDate} ${months[currentMonth]} ${currentYear}`;
 
 // window.addEventListener('load', () => {
     
+
+const fetchPosition = function(apiByPosition) {
+    fetch(apiByPosition)
+    .then( (response) => response.json() )
+    .then( (data) => {
+        let location = data.name;
+        let {temp, temp_min, temp_max} = data.main;
+        let {description, icon} = data.weather[0];
+        let {sunrise, sunset} = data.sys;
+        let iconUrl = `http://openweathermap.org/img/wn/${icon}@2x.png`;
+        let sunriseGMT = new Date(sunrise * 1000);
+        let sunsetGMT = new Date(sunset * 1000);
+        iconHTML.src = iconUrl;
+        loc.textContent = `${location}`;
+        desc.textContent = `${description}`;
+        tempC.textContent = `${temp.toFixed(1)} °C`;
+        tempMin.textContent = `min ${temp_min.toFixed(1)} °C`;
+        tempMax.textContent = `max ${temp_max.toFixed(1)} °C`;
+        sunriseHTML.textContent = `${sunriseGMT.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'} )}`;
+        sunsetHTML.textContent = `${sunsetGMT.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'} )}`;
+        }
+    );
+}
 // FETCH BY LOCATION 
 if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition( (position) => {
@@ -62,26 +85,7 @@ if (navigator.geolocation) {
         queryPosition.lon = position.coords.longitude;
         const apiByPosition = `https://api.openweathermap.org/data/2.5/weather?lat=${queryPosition.lat}&lon=${queryPosition.lon}&appid=${OPENWEATHER_APIKEY}&units=metric`;
         
-        fetch(apiByPosition)
-            .then( (response) => response.json() )
-            .then( (data) => {
-                let location = data.name;
-                let {temp, temp_min, temp_max} = data.main;
-                let {description, icon} = data.weather[0];
-                let {sunrise, sunset} = data.sys;
-                let iconUrl = `http://openweathermap.org/img/wn/${icon}@2x.png`;
-                let sunriseGMT = new Date(sunrise * 1000);
-                let sunsetGMT = new Date(sunset * 1000);
-                iconHTML.src = iconUrl;
-                loc.textContent = `${location}`;
-                desc.textContent = `${description}`;
-                tempC.textContent = `${temp.toFixed(1)} °C`;
-                tempMin.textContent = `min ${temp_min.toFixed(1)} °C`;
-                tempMax.textContent = `max ${temp_max.toFixed(1)} °C`;
-                sunriseHTML.textContent = `${sunriseGMT.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'} )}`;
-                sunsetHTML.textContent = `${sunsetGMT.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'} )}`;
-            }
-        );
+        fetchPosition(apiByPosition);
     })
 
     console.warn( 'fetch location OK' )
