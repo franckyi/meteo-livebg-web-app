@@ -1,5 +1,8 @@
 import {OPENWEATHER_APIKEY} from '../js/config.js';
 
+window.addEventListener('load', () => {
+
+
 // DOM
 const form = document.getElementById('form');
 const inputCity = document.getElementById('input-city');
@@ -53,9 +56,6 @@ const today = document.getElementById('date');
 time.innerHTML = `${hour}:${minutes}`;
 today.innerHTML = `${currentDate} ${months[currentMonth]} ${currentYear}`;
 
-// window.addEventListener('load', () => {
-    
-
 const fetchPosition = function(apiByPosition) {
     fetch(apiByPosition)
     .then( (response) => response.json() )
@@ -83,10 +83,9 @@ if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition( (position) => {
         queryPosition.lat = position.coords.latitude;
         queryPosition.lon = position.coords.longitude;
-        const apiByPosition = `https://api.openweathermap.org/data/2.5/weather?lat=${queryPosition.lat}&lon=${queryPosition.lon}&appid=${OPENWEATHER_APIKEY}&units=metric`;
-        fetchPosition(apiByPosition);
+        fetchPosition(`https://api.openweathermap.org/data/2.5/weather?lat=${queryPosition.lat}&lon=${queryPosition.lon}&appid=${OPENWEATHER_APIKEY}&units=metric`);
     })
-    console.warn( 'fetch location OK' )
+    console.warn( 'fetch position SUCCESS' )
 }
 
 const fetchInput = function(queryPosition) {
@@ -94,13 +93,12 @@ const fetchInput = function(queryPosition) {
     fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${queryPosition.name}&limit=5&appid=${OPENWEATHER_APIKEY}&units=metric`)
     .then( (response) => response.json() )
     .then( (data) => {
-        console.warn('queryPosition');
-        console.log(queryPosition);
+        // console.warn('queryPosition');
+        // console.log(queryPosition);
 
         data.forEach( d => { optionsCaptured.push(d) } );
-
-        console.warn('data');
-        console.log(data);
+        // console.warn('data');
+        // console.log(data);
 
         if (data.length == 1) {
             let option = document.createElement('option');
@@ -135,30 +133,27 @@ inputCity.addEventListener( 'input', () => {
 
     // BEFORE EMPTY GET LAST VAL OF MATCHED OPTION
     regex = inputCity.value.toLowerCase().replaceAll('  ',' ');
-    console.warn('regex');
-    console.log(regex);
+    // console.warn('regex');
+    // console.log(regex);
 
     optionsCaptured.forEach( o => {   
         
-        console.warn('optionsCaptured BEFORE GETTING VAL');
-        console.log(optionsCaptured);
+        // console.warn('optionsCaptured BEFORE GETTING VAL');
+        // console.log(optionsCaptured);
 
         const current = `${o.name} ${o.state} ${o.country}`;
-        console.warn('current.toLowerCase()');
-        console.log(current.toLowerCase());
+        // console.warn('current.toLowerCase()');
+        // console.log(current.toLowerCase());
 
         if ( current.toLowerCase().includes(regex) ) {
-            console.warn('MATCH');
-            console.log(`${queryPosition.lat} ${queryPosition.lon}`);
             queryPosition.lat = o.lat;
             queryPosition.lon = o.lon;
             fetchPosition(`https://api.openweathermap.org/data/2.5/weather?lat=${queryPosition.lat}&lon=${queryPosition.lon}&appid=${OPENWEATHER_APIKEY}&units=metric`);
         }
     })
 
-    console.warn('queryPosition');
-    console.log(queryPosition);
-
+    // console.warn('queryPosition');
+    // console.log(queryPosition);
 
     optionsCaptured = [];
     form.appendChild(datalist);
@@ -168,13 +163,9 @@ inputCity.addEventListener( 'input', () => {
     fetchInput(queryPosition);
 });
 
-
-
-
 // CONFIRM CURRENT INPUT VALUE
 btn.addEventListener( 'click', (e) => {
     e.preventDefault();
-
     // PASS VALS
     for (let i = 0; i < datalist.childNodes.length; i++) {
         console.warn('options');
@@ -187,76 +178,65 @@ btn.addEventListener( 'click', (e) => {
     queryPosition.name = inputCity.value.replaceAll('  ', ' ').trim(); 
     document.forms[0].reset();
 
-    console.warn(`entered = ${queryPosition.name}`);
-    // console.warn('regex:');
-    // console.log(queryPosition.name);
-    // console.warn('Results');
-    // console.log(Results);
+    console.warn(`entered = ${inputqueryPosition.name}`);
 
     // GET SELECTED OPTION HERE
     for (let i = 0; i < options.length; i++) {
         if (options[i].toLowerCase().includes(regex)) {
-            console.warn('MATCHED INPUT!!')
             cityIndex = i;
         }
-        // console.warn('options[i]');
-        // console.log(options[i]);
-        // console.warn('cityIndex');
-        // console.log(cityIndex);
     }
     datalist.innerHTML = "";
 
     // SIMPLE SEARCH const apiByCity = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${OPENWEATHER_APIKEY}&units=metric`;
-    const apiByQuery = `http://api.openweathermap.org/geo/1.0/direct?q=${queryPosition.name}&limit=5&${queryPosition.state}&${queryPosition.country}&appid=${OPENWEATHER_APIKEY}&units=metric`;
-    
-    fetch(apiByQuery)
-    .then( (response) => response.json() )
-    .then( (data) => {
+    // fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${queryPosition.name}&limit=5&${queryPosition.state}&${queryPosition.country}&appid=${OPENWEATHER_APIKEY}&units=metric`)
+    // .then( (response) => response.json() )
+    // .then( (data) => {
 
-        if (data.length > 0 && data.length < 2) {
-            queryPosition.lat = data[0].lat;
-            queryPosition.lon = data[0].lon;
-            return fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${queryPosition.lat}&lon=${queryPosition.lon}&appid=${OPENWEATHER_APIKEY}&units=metric`);
-        } 
+    //     if (data.length > 0 && data.length < 2) {
+    //         queryPosition.lat = data[0].lat;
+    //         queryPosition.lon = data[0].lon;
+    //         return fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${queryPosition.lat}&lon=${queryPosition.lon}&appid=${OPENWEATHER_APIKEY}&units=metric`);
+    //     } 
 
-        else if (data.length > 1) {
+    //     else if (data.length > 1) {
             
-            for (let i = 0; i < data.length; i++) {
-                if (`${data[i].name} ${data[i].state} ${data[i].country}` === queryPosition.name ) {
-                    cityIndex = i;
-                }
-            }
+    //         for (let i = 0; i < data.length; i++) {
+    //             if (`${data[i].name} ${data[i].state} ${data[i].country}` === queryPosition.name ) {
+    //                 cityIndex = i;
+    //             }
+    //         }
             
-            queryPosition.lat = data[cityIndex].lat;
-            queryPosition.lon = data[cityIndex].lon;
+    //         queryPosition.lat = data[cityIndex].lat;
+    //         queryPosition.lon = data[cityIndex].lon;
 
-            console.log(data[cityIndex].lat);
-            console.warn( 'fetch city OK', 'length = ' + data.length, queryPosition.lat, queryPosition.lon )
-            console.info(data);
+    //         console.log(data[cityIndex].lat);
+    //         console.warn( 'fetch city OK', 'length = ' + data.length, queryPosition.lat, queryPosition.lon )
+    //         console.info(data);
 
-            return fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${queryPosition.lat}&lon=${queryPosition.lon}&appid=${OPENWEATHER_APIKEY}&units=metric`);
-        }
+    //         return fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${queryPosition.lat}&lon=${queryPosition.lon}&appid=${OPENWEATHER_APIKEY}&units=metric`);
+    //     }
 
-    })
-    .then( (response) => response.json() )
-    .then( (data) => {
-        let location = data.name;
-        let {temp, temp_min, temp_max} = data.main;
-        let {description, icon} = data.weather[0];
-        let {sunrise, sunset} = data.sys;
-        let iconUrl = `http://openweathermap.org/img/wn/${icon}@2x.png`;
-        let sunriseGMT = new Date(sunrise * 1000);
-        let sunsetGMT = new Date(sunset * 1000);
-        iconHTML.src = iconUrl;
-        loc.textContent = `${location}`;
-        desc.textContent = `${description}`;
-        tempC.textContent = `${temp.toFixed(1)} °C`;
-        tempMin.textContent = `min ${temp_min.toFixed(1)} °C`;
-        tempMax.textContent = `max ${temp_max.toFixed(1)} °C`;
-        sunriseHTML.textContent = `${sunriseGMT.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'} )}`;
-        sunsetHTML.textContent = `${sunsetGMT.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'} )}`;
-    });
+    // })
+    // .then( (response) => response.json() )
+    // .then( (data) => {
+    //     let location = data.name;
+    //     let {temp, temp_min, temp_max} = data.main;
+    //     let {description, icon} = data.weather[0];
+    //     let {sunrise, sunset} = data.sys;
+    //     let iconUrl = `http://openweathermap.org/img/wn/${icon}@2x.png`;
+    //     let sunriseGMT = new Date(sunrise * 1000);
+    //     let sunsetGMT = new Date(sunset * 1000);
+    //     iconHTML.src = iconUrl;
+    //     loc.textContent = `${location}`;
+    //     desc.textContent = `${description}`;
+    //     tempC.textContent = `${temp.toFixed(1)} °C`;
+    //     tempMin.textContent = `min ${temp_min.toFixed(1)} °C`;
+    //     tempMax.textContent = `max ${temp_max.toFixed(1)} °C`;
+    //     sunriseHTML.textContent = `${sunriseGMT.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'} )}`;
+    //     sunsetHTML.textContent = `${sunsetGMT.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'} )}`;
+    // });
 
 });
 
-// });
+});
