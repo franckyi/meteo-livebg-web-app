@@ -155,8 +155,8 @@ btn.addEventListener( 'click', (e) => {
     console.log(queryPosition.name);
 
     for (let i = 0; i < passedVals.length; i++) {
-        const regex = queryPosition.name;
-        if (passedVals[i] == queryPosition.name) {
+        const regex = queryPosition.name.toLowerCase();
+        if (passedVals[i].toLowerCase().includes(regex)) {
             console.warn('MATCHED INPUT!!')
             cityIndex = i;
         }
