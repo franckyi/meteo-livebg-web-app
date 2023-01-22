@@ -15,7 +15,7 @@ const sunsetHTML = document.querySelector('.sunset');
 
 let datalist = document.createElement('datalist');
 let Results = [];
-let passedVals = [];
+let options = [];
 let cityIndex;
 let queryPosition = {
     name: undefined,
@@ -94,8 +94,10 @@ const fetchInput = function(queryPosition) {
     fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${queryPosition.name}&limit=5&appid=${OPENWEATHER_APIKEY}&units=metric`)
     .then( (response) => response.json() )
     .then( (data) => {
+        console.warn('queryPosition');
         console.log(queryPosition);
 
+        console.warn('data');
         console.log(data);
 
         if (data.length == 1) {
@@ -114,6 +116,8 @@ const fetchInput = function(queryPosition) {
             Results.forEach( (result) => {
                 let option = document.createElement('option');
                 queryPosition.city = result.name ?? '';
+                queryPosition.lat = result.lat ?? '';
+                queryPosition.lon = result.lon ?? '';
                 queryPosition.state = result.state ?? '';
                 queryPosition.country = result.country ?? '';
                 option.setAttribute('value', `${queryPosition.name} ${queryPosition.state} ${queryPosition.country}`);
@@ -133,34 +137,45 @@ inputCity.addEventListener( 'input', () => {
     fetchInput(queryPosition);
 });
 
+console.warn('options');
+console.log(options);
+
 
 // CONFIRM CURRENT INPUT VALUE
 btn.addEventListener( 'click', (e) => {
     e.preventDefault();
 
-    // CHECK THIS LOOP AGAINST ENTERED/INPUT VALUE
+    // PASS VALS
     for (let i = 0; i < datalist.childNodes.length; i++) {
-        console.warn('passedVals');
+        console.warn('options');
         console.log(datalist.childNodes[i].value);
         console.log(datalist);
-        passedVals.push(datalist.childNodes[i].value);
+        options.push(datalist.childNodes[i].value);
     }
 
-    datalist.innerHTML = "";
+    // datalist.innerHTML = "";
     queryPosition.name = inputCity.value.replaceAll('  ', ' ').trim(); 
     document.forms[0].reset();
 
     console.warn(`entered = ${queryPosition.name}`);
     console.warn('regex:');
     console.log(queryPosition.name);
+    console.warn('Results');
+    console.log(Results);
 
-    for (let i = 0; i < passedVals.length; i++) {
+    // GET SELECTED OPTION HERE
+    for (let i = 0; i < options.length; i++) {
         const regex = queryPosition.name.toLowerCase();
-        if (passedVals[i].toLowerCase().includes(regex)) {
+        if (options[i].toLowerCase().includes(regex)) {
             console.warn('MATCHED INPUT!!')
             cityIndex = i;
         }
+        console.warn('options[i]');
+        console.log(options[i]);
+        console.warn('cityIndex');
+        console.log(cityIndex);
     }
+    datalist.innerHTML = "";
 
     // SIMPLE SEARCH const apiByCity = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${OPENWEATHER_APIKEY}&units=metric`;
     const apiByQuery = `http://api.openweathermap.org/geo/1.0/direct?q=${queryPosition.name}&limit=5&${queryPosition.state}&${queryPosition.country}&appid=${OPENWEATHER_APIKEY}&units=metric`;
