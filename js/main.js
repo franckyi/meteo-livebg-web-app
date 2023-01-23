@@ -60,7 +60,7 @@ const updateData = function(data) {
     let {temp, temp_min, temp_max} = data.main;
     let {description, icon} = data.weather[0];
     let {sunrise, sunset} = data.sys;
-    let iconUrl = `http://openweathermap.org/img/wn/${icon}@2x.png`;
+    let iconUrl = `https://openweathermap.org/img/wn/${icon}@2x.png`;
     let sunriseGMT = new Date(sunrise * 1000);
     let sunsetGMT = new Date(sunset * 1000);
     iconHTML.src = iconUrl;
@@ -94,7 +94,7 @@ if (navigator.geolocation) {
 
 const fetchQuery = function(searchResult) {
     searchResult.name = inputCity.value;
-    fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${searchResult.name}&limit=5&appid=${OPENWEATHER_APIKEY}&units=metric`)
+    fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${searchResult.name}&limit=5&appid=${OPENWEATHER_APIKEY}&units=metric`)
     .then( (response) => response.json() )
     .then( (data) => {
         data.forEach( d => { optionsCaptured.push(d) } );
