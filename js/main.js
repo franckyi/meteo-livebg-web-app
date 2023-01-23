@@ -2,7 +2,6 @@ import {OPENWEATHER_APIKEY} from '../js/config.js';
 
 window.addEventListener('load', () => {
 
-
 // DOM
 const form = document.getElementById('form');
 const inputCity = document.getElementById('input-city');
@@ -98,12 +97,7 @@ const fetchQuery = function(searchResult) {
     fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${searchResult.name}&limit=5&appid=${OPENWEATHER_APIKEY}&units=metric`)
     .then( (response) => response.json() )
     .then( (data) => {
-        // console.warn('searchResult');
-        // console.log(searchResult);
-
         data.forEach( d => { optionsCaptured.push(d) } );
-        // console.warn('data');
-        // console.log(data);
 
         if (data.length == 1) {
             let option = document.createElement('option');
@@ -112,12 +106,10 @@ const fetchQuery = function(searchResult) {
         }
 
         else if (data.length > 1) {
-            // CREATE ARRAY OF RESULTS
             data.forEach( city => {        
                 Results.push(city);
             });
-                            
-            // CREATE OPTIONS IN HTML
+
             Results.forEach( (result) => {
                 let option = document.createElement('option');
                 searchResult.name = result.name ?? result.city;
@@ -155,10 +147,13 @@ inputCity.addEventListener( 'input', () => {
     fetchQuery(searchResult);
 });
 
-// CONFIRM CURRENT INPUT VALUE
+/* TODO BTN ONLY MUST CONFIRM THE VALUE AND FETCH AGAIN
+    SO CLEAN BELOW FUNCTION
+*/
 btn.addEventListener( 'click', (e) => {
     e.preventDefault();
-    // PASS VALS
+
+    // PASS VALS TODO IS THIS NEEDED?
     for (let i = 0; i < datalist.childNodes.length; i++) {
         console.warn('options');
         console.log(datalist.childNodes[i].value);
@@ -166,67 +161,20 @@ btn.addEventListener( 'click', (e) => {
         options.push(datalist.childNodes[i].value);
     }
 
-    // datalist.innerHTML = "";
     searchResult.name = inputCity.value.replaceAll('  ', ' ').trim(); 
-    document.forms[0].reset();
-
-    console.warn(`entered = ${searchResult.name}`);
-
+    
+    console.log(`🔎 requested ${searchResult.name}`);
+    
     // GET SELECTED OPTION HERE
     for (let i = 0; i < options.length; i++) {
         if (options[i].toLowerCase().includes(regex)) {
             cityIndex = i;
         }
     }
-    datalist.innerHTML = "";
+    document.forms[0].reset();
 
     // SIMPLE SEARCH const apiByCity = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${OPENWEATHER_APIKEY}&units=metric`;
-    fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${searchResult.name}&limit=5&${searchResult.state}&${searchResult.country}&appid=${OPENWEATHER_APIKEY}&units=metric`)
-    .then( (response) => response.json() )
-    .then( (data) => {
-
-        if (data.length > 0 && data.length < 2) {
-            searchResult.lat = data[0].lat;
-            searchResult.lon = data[0].lon;
-            return fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${searchResult.lat}&lon=${searchResult.lon}&appid=${OPENWEATHER_APIKEY}&units=metric`);
-        } 
-
-        else if (data.length > 1) {
-            for (let i = 0; i < data.length; i++) {
-                if (`${data[i].name} ${data[i].state} ${data[i].country}` === searchResult.name ) {
-                    cityIndex = i;
-                }
-            }
-            searchResult.lat = data[cityIndex].lat;
-            searchResult.lon = data[cityIndex].lon;
-
-            console.log(data[cityIndex].lat);
-            console.warn( 'fetch city OK', 'length = ' + data.length, searchResult.lat, searchResult.lon )
-            console.info(data);
-
-            return fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${searchResult.lat}&lon=${searchResult.lon}&appid=${OPENWEATHER_APIKEY}&units=metric`);
-        }
-
-    })
-    .then( (response) => response.json() )
-    .then( (data) => {
-        let location = data.name;
-        let {temp, temp_min, temp_max} = data.main;
-        let {description, icon} = data.weather[0];
-        let {sunrise, sunset} = data.sys;
-        let iconUrl = `http://openweathermap.org/img/wn/${icon}@2x.png`;
-        let sunriseGMT = new Date(sunrise * 1000);
-        let sunsetGMT = new Date(sunset * 1000);
-        iconHTML.src = iconUrl;
-        loc.textContent = `${location}`;
-        desc.textContent = `${description}`;
-        tempC.textContent = `${temp.toFixed(1)} °C`;
-        tempMin.textContent = `min ${temp_min.toFixed(1)} °C`;
-        tempMax.textContent = `max ${temp_max.toFixed(1)} °C`;
-        sunriseHTML.textContent = `${sunriseGMT.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'} )}`;
-        sunsetHTML.textContent = `${sunsetGMT.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'} )}`;
-    });
-
+    // fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${searchResult.name}&limit=5&${searchResult.state}&${searchResult.country}&appid=${OPENWEATHER_APIKEY}&units=metric`);
 });
 
 });
