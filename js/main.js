@@ -90,15 +90,14 @@ window.addEventListener('load', () => {
         requestedLocation.name = inputCity.value;
         fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${requestedLocation.name}&limit=5&appid=${OPENWEATHER_APIKEY}&units=metric`)
         .then( resp => resp.json() ).then( data => {
-
             data.forEach( d => { capturedOptions.push(d) } );
             displayOptionsHTML(data);
         });
     }
 
     const displayOptionsHTML = data => {
+        let option = document.createElement('option');
         if (data.length == 1) {
-            let option = document.createElement('option');
             datalist.appendChild(option);
             option.setAttribute('value', `${data[0].name ?? ''} ${data[0].state ?? ''} ${data[0].country ?? ''}`);
         }
@@ -108,7 +107,6 @@ window.addEventListener('load', () => {
             });
 
             Results.forEach( result => {
-                let option = document.createElement('option');
                 requestedLocation.name = result.name ?? result.city;
                 requestedLocation.lat = result.lat ?? '';
                 requestedLocation.lon = result.lon ?? '';
