@@ -57,11 +57,15 @@ window.addEventListener('load', () => {
         const desc = document.querySelector('.desc');
         const tempC = document.querySelector('.c');
         const tempMin = document.querySelector('.min');
+        const press = document.getElementById('pressure');
+        const humid = document.getElementById('humidity');
+        const windSpeed = document.getElementById('wind-speed');
         const tempMax = document.querySelector('.max');
         const sunriseHTML = document.querySelector('.sunrise');
         const sunsetHTML = document.querySelector('.sunset');
         let location = data.name;
-        let { temp, temp_min, temp_max } = data.main;
+        let { temp, temp_min, temp_max, pressure, humidity } = data.main;
+        let { speed } = data.wind;
         let { description, icon } = data.weather[0];
         let { sunrise, sunset } = data.sys;
         let iconUrl = `https://openweathermap.org/img/wn/${icon}@2x.png`;
@@ -73,6 +77,9 @@ window.addEventListener('load', () => {
         tempC.textContent = `${temp.toFixed(1)} °C`;
         tempMin.textContent = `min ${temp_min.toFixed(1)} °C`;
         tempMax.textContent = `max ${temp_max.toFixed(1)} °C`;
+        press.textContent = `pressure: ${pressure}`;
+        humid.textContent = `humidity: ${humidity}`;
+        windSpeed.textContent = `wind speed: ${speed}`;
         sunriseHTML.textContent = `${sunriseGMT.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'} )}`;
         sunsetHTML.textContent = `${sunsetGMT.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'} )}`;
         console.log( '✅ update data OK' )
@@ -142,7 +149,7 @@ window.addEventListener('load', () => {
                 requestedLocation.lon = o.lon;
                 fetchPosition(`https://api.openweathermap.org/data/2.5/weather?lat=${requestedLocation.lat}&lon=${requestedLocation.lon}&appid=${OPENWEATHER_APIKEY}&units=metric`);
             }
-        })
+        });
         capturedOptions = [];
     }
 
