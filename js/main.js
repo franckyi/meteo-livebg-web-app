@@ -122,15 +122,14 @@ const fetchQuery = function(requestedLocation) {
             });
         }
     })
-    // .fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${requestedLocation.name}&limit=5&appid=${OPENWEATHER_APIKEY}&units=metric`);
 }
 
-// UPDATE INPUT VALUE WHEN TYPING
+// UPDATE INPUT VALUE WHILE TYPING
 inputCity.addEventListener( 'input', () => {
     Results = [];
-    regex = inputCity.value.toLowerCase().replaceAll('  ',' ');
-
-    optionsCaptured.forEach( o => {   
+    regex = inputCity.value.toLowerCase().replaceAll('  ',' ').trim();
+    
+    optionsCaptured.forEach( o => {
         const current = `${o.name} ${o.state} ${o.country}`;
         if ( current.toLowerCase().includes(regex) ) {
             requestedLocation.lat = o.lat;
@@ -138,41 +137,43 @@ inputCity.addEventListener( 'input', () => {
             fetchPosition(`https://api.openweathermap.org/data/2.5/weather?lat=${requestedLocation.lat}&lon=${requestedLocation.lon}&appid=${OPENWEATHER_APIKEY}&units=metric`);
         }
     })
-
+    
     optionsCaptured = [];
     form.appendChild(datalist);
-    datalist.innerHTML = "";   
+    datalist.innerHTML = "";
     datalist.setAttribute('id', 'results');
     requestedLocation.name = inputCity.value;
     fetchQuery(requestedLocation);
 });
 
-/* TODO BTN ONLY MUST CONFIRM THE VALUE AND FETCH AGAIN
-SO CLEAN BELOW FUNCTION
-*/
 btn.addEventListener( 'click', (e) => {
     e.preventDefault();
     console.log(`🔎 requested ${requestedLocation.name}`);
-    // requestedLocation.name = inputCity.value.replaceAll('  ', ' ').trim(); 
-
-    // PASS VALS TODO IS THIS NEEDED?
-    // for (let i = 0; i < datalist.childNodes.length; i++) {
-    //     console.warn('options');
-    //     console.log(datalist.childNodes[i].value);
-    //     console.log(datalist);
-    //     options.push(datalist.childNodes[i].value);
-    // }
-
-    // GET SELECTED OPTION HERE
-    // for (let i = 0; i < options.length; i++) {
-    //     if (options[i].toLowerCase().includes(regex)) {
-    //         cityIndex = i;
-    //     }
-    // }
-    // document.forms[0].reset();
-
-    // SIMPLE SEARCH const apiByCity = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${OPENWEATHER_APIKEY}&units=metric`;
-    // fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${requestedLocation.name}&limit=5&${requestedLocation.state}&${requestedLocation.country}&appid=${OPENWEATHER_APIKEY}&units=metric`);
+    requestedLocation.name = inputCity.value.replaceAll('  ', ' ').trim(); 
 });
 
 });
+
+
+/* FALLBACK
+ .fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${requestedLocation.name}&limit=5&appid=${OPENWEATHER_APIKEY}&units=metric`);
+*/
+
+// PASS VALS TODO IS THIS NEEDED?
+// for (let i = 0; i < datalist.childNodes.length; i++) {
+//     console.warn('options');
+//     console.log(datalist.childNodes[i].value);
+//     console.log(datalist);
+//     options.push(datalist.childNodes[i].value);
+// }
+
+// GET SELECTED OPTION HERE
+// for (let i = 0; i < options.length; i++) {
+//     if (options[i].toLowerCase().includes(regex)) {
+//         cityIndex = i;
+//     }
+// }
+// document.forms[0].reset();
+
+// SIMPLE SEARCH const apiByCity = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${OPENWEATHER_APIKEY}&units=metric`;
+// fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${requestedLocation.name}&limit=5&${requestedLocation.state}&${requestedLocation.country}&appid=${OPENWEATHER_APIKEY}&units=metric`);
