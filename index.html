@@ -13,32 +13,38 @@
 </head>
 <body>
     <main>
+      
       <form id="form" action="">
         <input id="input-city" list="results" type="text" placeholder="e.g. Capri" aria-label="form">
         <input id="btn" type="submit" hidden>
       </form>
-      <!-- <article> -->
+
+      <div class="current-date">
+        <span id="time" class="time"></span>
+        <span id="date" class="date"></span>
+      </div>
+
+      <div class="temp">
+        <span class="c">no data</span>
+        <span id="feel">no data</span>
+        <div class="range">
+            <span class="min">no data</span>
+            <span class="max">no data</span>
+        </div>
+    </div>
+
+      <article>
         <img class="weather-icon" id="weather-icon" src="" alt="weather icon">
         <p id="description" class="desc">no data</p>
         <h1 class="location">Service unavailable</h1>
-        <p id="time" class="time"></p>
-        <p id="date" class="date"></p>
         <p id="pressure"></p>
         <p id="humidity"></p>
         <p id="wind-speed"></p>
-        <div class="temp">
-            <span class="c">no data</span>
-            <span id="feel">no data</span>
-            <div class="range">
-                <span class="min">no data</span>
-                <span class="max">no data</span>
-            </div>
-        </div>
         <div class="day">
             <span class="label"><img src="images/sunrise.png" alt="sunrise icon" height="40px"> <span class="sunrise">no data</span></span>
             <span class="label"><img src="images/sunset.png" alt="sunset icon" height="40px"> <span class="sunset">no data</span></span>
         </div>
-      <!-- </article> -->
+      </article>
     </main>
     <script src="js/config.js" type="module"></script>
     <script src="js/main.js" type="module"></script>
