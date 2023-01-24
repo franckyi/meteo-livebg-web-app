@@ -8,6 +8,9 @@ import { PEXELS_APIKEY } from '../js/config.js';
 // import {passTempValue} from '../js/main.js';
 // console.log(passTempValue);
 
+import { tempC } from '../js/main.js';
+console.warn('tempC.textContent');
+console.log(tempC.textContent);
 
 let query;
 let queries = {
