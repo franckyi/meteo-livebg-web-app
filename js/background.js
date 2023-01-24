@@ -4,12 +4,15 @@ let query = 'winter';
 let image = '';
 let color, orientation;
 
-fetch(`https://api.pexels.com/v1/search?query=${query}`, { headers: { Authorization: PEXELS_APIKEY } })
-.then( resp => resp.json() ).then( data => {
+fetch(`https://api.pexels.com/v1/search?query=${query}`,
+{ headers: { Authorization: PEXELS_APIKEY } } )
+.then( resp => resp.json() )
+.then( data => {
     console.log(data.photos[0].src.landscape); // TODO GET RANDOM IMAGE
     image = data.photos[0].src.landscape;  // and ORIENTATION FROM DEVICE
     document.body.style.backgroundImage = 'url(' + image + ')';
-});
+})
+.catch(document.body.style.backgroundColor = color);
 
 // console.log(image);
 
