@@ -1,4 +1,5 @@
 import { OPENWEATHER_APIKEY } from '../js/config.js';
+import { chooseQuery } from '../js/background.js';
 // export let temperature;
 
 const tempC = document.querySelector('.c');
@@ -6,17 +7,15 @@ const desc = document.querySelector('.desc');
 
 let temp;
 let description;
-// let amico = '';
 
+// let amico = ''; // PROVA A CAPIRE COME PASSARE L'AMICO FUORI FINO A QUI
 // function ponte() {
 //     console.warn(temperature,temp);
 // }
-
 // ponte();
 // console.warn('temp');
 // console.info(temp);
 
-    
 const form = document.getElementById('form');
 const inputCity = document.getElementById('input-city');
 const btn = document.getElementById('btn');
@@ -131,6 +130,8 @@ const fetchQuery = function(requestedLocation) {
         if (data.length > 0) {
             data.forEach( d => { capturedOptions.push(d) } );
             displayOptionsHTML(data);
+
+            chooseQuery();
         }
         // else {
         //     console.warn('Found nothing, so trying again');
