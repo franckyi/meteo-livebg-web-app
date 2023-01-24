@@ -1,8 +1,15 @@
 import { PEXELS_APIKEY } from '../js/config.js';
+// import { temperature } from '../js/main.js';
+// console.log(temperature);
 
-const temp = document.querySelector('.c').textContent;
-const desc = document.querySelector('.desc').textContent;
+// import {test} from '../js/main.js';
+// console.log(test);
 
+// import {passTempValue} from '../js/main.js';
+// console.log(passTempValue);
+
+
+let query;
 let queries = {
     cold: ['winter', 'snow', 'ice'], // UNDER 0^
     wind: ['wind', 'strong wind'],
@@ -13,31 +20,46 @@ let queries = {
 }
 
 function chooseQuery() {
-    if (temp < 0) {
-        query = queries.cold[ Math.floor( Math.random() * (queries.cold.length+1) ) ];
-    }
-    else if (temp > 25) {
-        query = queries.sun[ Math.floor( Math.random() * (queries.sun.length+1) ) ];
-    }
-    else if (temp >= 0 && temp <= 25) {
-        if (desc.includes('wind') ) {
-            query = queries.wind[ Math.floor( Math.random * (queries.wind.length+1) ) ];
-        }
-        else if (desc.includes('rain') ) {
-            query = queries.rain[ Math.floor( Math.random * (queries.rain.length+1) ) ];
-        }
-        else if (desc.includes('clouds') ) {
-            query = queries.clouds[ Math.floor( Math.random * (queries.clouds.length+1) ) ];
-        }
-        else if (desc.includes('sun') ) {
-            query = queries.sun[ Math.floor( Math.random * (queries.sun.length+1) ) ];
-        }
-    }
-
-
+    // let temp = document.querySelector('.c').textContent.replace('°C','').trim();
+    // let desc = document.querySelector('.desc').textContent.replace('°C','').trim();
+    // console.warn('temp');
+    // console.log(temp);
+    // console.warn('desc');
+    // console.log(desc);
+    // function choose() {
+        // if (temp < 0) {
+        //     query = queries.cold[ Math.floor( Math.random() * (queries.cold.length+1) ) ];
+        //     console.log(query);
+        // }
+        // else if (temp > 25) {
+        //     query = queries.sun[ Math.floor( Math.random() * ((queries.sun.length)+1) ) ];
+        //     console.log(query);
+        // }
+        // else if (temp >= 0 && temp <= 25) {
+        //     if (desc.includes('wind') ) {
+        //         query = queries.wind[ Math.floor( Math.random * ((queries.wind.length)+1) ) ];
+        //         console.log(query);
+        //     }
+        //     else if (desc.includes('rain') ) {
+        //         query = queries.rain[ Math.floor( Math.random * ((queries.rain.length)+1) ) ];
+        //         console.log(query);
+        //     }
+        //     else if (desc.includes('clouds') ) {
+        //         query = queries.clouds[ Math.floor( Math.random * ((queries.clouds.length)+1) ) ];
+        //         console.log(query);
+        //     }
+        //     else if (desc.includes('sun') ) {
+        //         query = queries.sun[ Math.floor( Math.random * ((queries.sun.length)+1) ) ];
+        //         console.log(query);
+        //     }
+        // }
+        // console.log('test');
 }
 
-let query = 'winter'; // TODO GET RANDOM STRING FROM VOCABULARY BASING ON TEMPERATURE VALUE
+console.warn('query');
+console.log(query);
+
+chooseQuery();
 
 fetch(`https://api.pexels.com/v1/search?query=${query}`,
 { headers: { Authorization: PEXELS_APIKEY } } )
@@ -51,7 +73,7 @@ fetch(`https://api.pexels.com/v1/search?query=${query}`,
 function getImage(data) {
     let portrait = window.matchMedia('orientation: portrait');
     let landscape = window.matchMedia('orientation: landscape');
-    let randomIndex = Math.floor( Math.random() * (data.photos.length+1) );
+    let randomIndex = Math.floor( Math.random() * ((data.photos.length)+1) );
     let imageUrl;
 
     if (portrait) {

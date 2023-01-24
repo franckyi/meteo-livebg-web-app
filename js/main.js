@@ -1,7 +1,16 @@
 import { OPENWEATHER_APIKEY } from '../js/config.js';
+// let temperature = Number(document.querySelector('.c').textContent.replace('°C','').trim());
+// console.log(temperature);
+
+// export let test = 'FUNZIONA';
+
+// export const passTempValue = function (a) {
+//     console.log('PROVA');
+//     return temp;
+// }
 
 window.addEventListener('load', () => {
-
+    
     const form = document.getElementById('form');
     const inputCity = document.getElementById('input-city');
     const btn = document.getElementById('btn');
@@ -85,6 +94,8 @@ window.addEventListener('load', () => {
         sunriseHTML.textContent = `${sunriseGMT.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'} )}`;
         sunsetHTML.textContent = `${sunsetGMT.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'} )}`;
         console.log( '✅ update data OK' )
+
+        passTempValue(temp.toFixed(1));
     }
 
     const fetchPosition = function(useLatLon) {
@@ -172,3 +183,7 @@ window.addEventListener('load', () => {
     });
 
 });
+
+// const test = document.querySelector('.c').textContent;
+// let temperature = Number(test.replace('°C','').trim());
+// console.log(temperature);
