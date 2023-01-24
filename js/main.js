@@ -1,18 +1,5 @@
 import { OPENWEATHER_APIKEY } from '../js/config.js';
-// let temperature = Number(document.querySelector('.c').textContent.replace('°C','').trim());
-// console.log(temperature);
-
-// export let test = 'FUNZIONA';
-
-// export const passTempValue = function (a) {
-//     console.log('PROVA');
-//     return temp;
-// }
-
 export const tempC = document.querySelector('.c');
-
-
-// window.addEventListener('load', () => {
     
 const form = document.getElementById('form');
 const inputCity = document.getElementById('input-city');
@@ -86,7 +73,7 @@ const updateData = function(data) {
     iconHTML.src = iconUrl;
     loc.textContent = `${location}`;
     desc.textContent = `${description}`;
-    tempC.textContent = `${temp.toFixed(1)} °C`;
+    tempC.textContent = `${temp.toFixed(1)} °C`; // I WANT THIS VALUE
     tempFeel.textContent = `${feels_like.toFixed(1)} °C`;
     tempMin.textContent = `min ${temp_min.toFixed(1)} °C`;
     tempMax.textContent = `max ${temp_max.toFixed(1)} °C`;
@@ -183,8 +170,6 @@ btn.addEventListener( 'click', e => {
     e.preventDefault();
     inputCity.value = '';
 });
-
-// });
 
 // const test = document.querySelector('.c').textContent;
 // let temperature = Number(test.replace('°C','').trim());

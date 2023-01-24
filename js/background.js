@@ -1,16 +1,8 @@
 import { PEXELS_APIKEY } from '../js/config.js';
-// import { temperature } from '../js/main.js';
-// console.log(temperature);
+import { tempC } from '../js/main.js';
 
-// import {test} from '../js/main.js';
-// console.log(test);
-
-// import {passTempValue} from '../js/main.js';
-// console.log(passTempValue);
-
-// import { tempC } from '../js/main.js';
-// console.warn('tempC.textContent');
-// console.log(tempC.textContent);
+console.warn('tempC.textContent');
+console.log(tempC.textContent);
 
 let query;
 let queries = {
@@ -56,7 +48,6 @@ function chooseQuery() {
         //         console.log(query);
         //     }
         // }
-        // console.log('test');
 }
 
 console.warn('query');
