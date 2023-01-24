@@ -1,8 +1,10 @@
 import { PEXELS_APIKEY } from '../js/config.js';
-import { tempC } from '../js/main.js';
+// import { ponte } from '../js/main.js';
 
 // console.warn('tempC.textContent');
 // console.log(tempC.textContent);
+
+// console.warn(temperature);
 
 let query;
 let queries = {

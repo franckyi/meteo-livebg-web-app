@@ -1,7 +1,21 @@
 import { OPENWEATHER_APIKEY } from '../js/config.js';
-export const tempC = document.querySelector('.c');
+export let temperature;
 
-let temp, amico;
+const tempC = document.querySelector('.c');
+const desc = document.querySelector('.desc');
+
+let temp;
+let description;
+let amico = '';
+
+function ponte() {
+    console.warn(temperature,temp);
+}
+
+ponte();
+console.warn('temp');
+console.info(temp);
+
     
 const form = document.getElementById('form');
 const inputCity = document.getElementById('input-city');
@@ -55,7 +69,6 @@ if (navigator.geolocation) {
 const updateData = function(data) {
     const iconHTML = document.getElementById('weather-icon');
     const loc = document.querySelector('.location');
-    const desc = document.querySelector('.desc');
     const tempFeel = document.getElementById('feel');
     const tempMin = document.querySelector('.min');
     const press = document.getElementById('pressure');
@@ -65,14 +78,22 @@ const updateData = function(data) {
     const sunriseHTML = document.querySelector('.sunrise');
     const sunsetHTML = document.querySelector('.sunset');
     let location = data.name;
+    let { icon } = data.weather[0];
 
-    let temp = data.main.temp;
-    amico = temp;
-    console.warn(`temp: ${temp}, amico: ${amico}`);
+    temp = data.main.temp;
+    description = data.weather[0].description;
+    
+    function passa() {
+        temperature = temp;
+        console.warn(`temp: ${temp}, temperature: ${temperature}`);
+        console.warn(`Passo temperature`);
+        ponte();
+    }
+    passa();
+
 
     let { feels_like, temp_min, temp_max, pressure, humidity } = data.main;
     let { speed } = data.wind;
-    let { description, icon } = data.weather[0];
     let { sunrise, sunset } = data.sys;
     let iconUrl = `https://openweathermap.org/img/wn/${icon}@2x.png`;
     let sunriseGMT = new Date(sunrise * 1000);
