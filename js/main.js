@@ -1,5 +1,4 @@
 import { OPENWEATHER_APIKEY } from '../js/config.js';
-import { PEXELS_APIKEY } from '../js/config.js';
 
 window.addEventListener('load', () => {
 
@@ -171,38 +170,5 @@ window.addEventListener('load', () => {
         e.preventDefault();
         inputCity.value = '';
     });
-
-    
-    // IN PROGRESS
-    let query = 'winter';
-    // let bgImage = '';
-    fetch(`https://api.pexels.com/v1/search?query=${query}`, { headers: { Authorization: PEXELS_APIKEY } })
-    .then( resp => resp.json() ).then( data => {
-        console.log(data.photos); // TODO GET RANDOM IMAGE
-        console.log(data.photos[0].url); // TODO GET RANDOM IMAGE
-        let bgImage = data.photos[0].url;
-        console.log(bgImage);
-        document.querySelector('main').style.backgroundImage = 'url(' + bgImage + ')';
-        }
-    );
-
-
-
-    // OLD WAY SAMPLE WORKS
-    // let mood = 'winter';
-    // async function pairBackground(mood) {
-    //     const data = await fetch(`https://api.pexels.com/v1/search?query=${mood}`,
-    //     {
-    //         method: "GET",
-    //         headers: {
-    //             Accept: "application/json",
-    //             Authorization: PEXELS_APIKEY,
-    //         }
-    //     });
-    //     const response = await data.json();
-    //     console.warn(response);
-    // }
-
-    // pairBackground('winter')
 
 });
