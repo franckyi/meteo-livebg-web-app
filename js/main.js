@@ -1,5 +1,7 @@
 import { OPENWEATHER_APIKEY } from '../js/config.js';
 export const tempC = document.querySelector('.c');
+
+let temp, amico;
     
 const form = document.getElementById('form');
 const inputCity = document.getElementById('input-city');
@@ -63,7 +65,12 @@ const updateData = function(data) {
     const sunriseHTML = document.querySelector('.sunrise');
     const sunsetHTML = document.querySelector('.sunset');
     let location = data.name;
-    let { temp, feels_like, temp_min, temp_max, pressure, humidity } = data.main;
+
+    let temp = data.main.temp;
+    amico = temp;
+    console.warn(`temp: ${temp}, amico: ${amico}`);
+
+    let { feels_like, temp_min, temp_max, pressure, humidity } = data.main;
     let { speed } = data.wind;
     let { description, icon } = data.weather[0];
     let { sunrise, sunset } = data.sys;
@@ -83,8 +90,6 @@ const updateData = function(data) {
     sunriseHTML.textContent = `${sunriseGMT.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'} )}`;
     sunsetHTML.textContent = `${sunsetGMT.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'} )}`;
     console.log( '✅ update data OK' )
-
-    passTempValue(temp.toFixed(1));
 }
 
 const fetchPosition = function(useLatLon) {
@@ -170,7 +175,3 @@ btn.addEventListener( 'click', e => {
     e.preventDefault();
     inputCity.value = '';
 });
-
-// const test = document.querySelector('.c').textContent;
-// let temperature = Number(test.replace('°C','').trim());
-// console.log(temperature);
