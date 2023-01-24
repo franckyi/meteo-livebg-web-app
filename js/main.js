@@ -1,20 +1,20 @@
 import { OPENWEATHER_APIKEY } from '../js/config.js';
-export let temperature;
+// export let temperature;
 
 const tempC = document.querySelector('.c');
 const desc = document.querySelector('.desc');
 
 let temp;
 let description;
-let amico = '';
+// let amico = '';
 
-function ponte() {
-    console.warn(temperature,temp);
-}
+// function ponte() {
+//     console.warn(temperature,temp);
+// }
 
-ponte();
-console.warn('temp');
-console.info(temp);
+// ponte();
+// console.warn('temp');
+// console.info(temp);
 
     
 const form = document.getElementById('form');
@@ -82,14 +82,17 @@ const updateData = function(data) {
 
     temp = data.main.temp;
     description = data.weather[0].description;
+
+    localStorage.setItem('temperature', temp);
+    localStorage.setItem('description', description);
     
-    function passa() {
-        temperature = temp;
-        console.warn(`temp: ${temp}, temperature: ${temperature}`);
-        console.warn(`Passo temperature`);
-        ponte();
-    }
-    passa();
+    // function passa() {
+    //     temperature = temp;
+    //     console.warn(`temp: ${temp}, temperature: ${temperature}`);
+    //     console.warn(`Passo temperature`);
+    //     ponte();
+    // }
+    // passa();
 
 
     let { feels_like, temp_min, temp_max, pressure, humidity } = data.main;

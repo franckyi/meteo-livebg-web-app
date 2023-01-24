@@ -6,6 +6,13 @@ import { PEXELS_APIKEY } from '../js/config.js';
 
 // console.warn(temperature);
 
+let temp = localStorage.getItem('temperature');
+let desc = localStorage.getItem('description');
+console.warn('temp');
+console.log(temp);
+console.warn('desc');
+console.log(desc);
+
 let query;
 let queries = {
     cold: ['winter', 'snow', 'ice'], // UNDER 0^
@@ -17,39 +24,33 @@ let queries = {
 }
 
 function chooseQuery() {
-    // let temp = document.querySelector('.c').textContent.replace('°C','').trim();
-    // let desc = document.querySelector('.desc').textContent.replace('°C','').trim();
-    // console.warn('temp');
-    // console.log(temp);
-    // console.warn('desc');
-    // console.log(desc);
-    // function choose() {
-        // if (temp < 0) {
-        //     query = queries.cold[ Math.floor( Math.random() * (queries.cold.length+1) ) ];
-        //     console.log(query);
-        // }
-        // else if (temp > 25) {
-        //     query = queries.sun[ Math.floor( Math.random() * ((queries.sun.length)+1) ) ];
-        //     console.log(query);
-        // }
-        // else if (temp >= 0 && temp <= 25) {
-        //     if (desc.includes('wind') ) {
-        //         query = queries.wind[ Math.floor( Math.random * ((queries.wind.length)+1) ) ];
-        //         console.log(query);
-        //     }
-        //     else if (desc.includes('rain') ) {
-        //         query = queries.rain[ Math.floor( Math.random * ((queries.rain.length)+1) ) ];
-        //         console.log(query);
-        //     }
-        //     else if (desc.includes('clouds') ) {
-        //         query = queries.clouds[ Math.floor( Math.random * ((queries.clouds.length)+1) ) ];
-        //         console.log(query);
-        //     }
-        //     else if (desc.includes('sun') ) {
-        //         query = queries.sun[ Math.floor( Math.random * ((queries.sun.length)+1) ) ];
-        //         console.log(query);
-        //     }
-        // }
+    function choose() {
+        if (temp < 0) {
+            query = queries.cold[ Math.floor( Math.random() * (queries.cold.length+1) ) ];
+            console.log(query);
+        }
+        else if (temp > 25) {
+            query = queries.sun[ Math.floor( Math.random() * ((queries.sun.length)+1) ) ];
+            console.log(query);
+        }
+        else if (temp >= 0 && temp <= 25) {
+            if (desc.includes('wind') ) {
+                query = queries.wind[ Math.floor( Math.random * ((queries.wind.length)+1) ) ];
+                console.log(query);
+            }
+            else if (desc.includes('rain') ) {
+                query = queries.rain[ Math.floor( Math.random * ((queries.rain.length)+1) ) ];
+                console.log(query);
+            }
+            else if (desc.includes('clouds') ) {
+                query = queries.clouds[ Math.floor( Math.random * ((queries.clouds.length)+1) ) ];
+                console.log(query);
+            }
+            else if (desc.includes('sun') ) {
+                query = queries.sun[ Math.floor( Math.random * ((queries.sun.length)+1) ) ];
+                console.log(query);
+            }
+        }
 }
 
 console.warn('query');
@@ -81,4 +82,5 @@ function getImage(data) {
         imageUrl = photoList[randomIndex].src.landscape;
     }
     document.body.style.backgroundImage = 'url(' + imageUrl + ')';
+}
 }
