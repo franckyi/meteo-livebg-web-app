@@ -1,17 +1,39 @@
 import { PEXELS_APIKEY } from '../js/config.js';
 
 const temp = document.querySelector('.c').textContent;
+const desc = document.querySelector('.desc').textContent;
 
 let queries = {
-    winter: ['winter', 'snow', 'ice'],
-    spring: ['spring', 'flowers'],
-    summer: ['summer', 'summer beach'],
-    autumn: ['autumn', 'falling leaves'],
-    wind: ['wind'],
-    storm: ['strong wind','storm'],
+    cold: ['winter', 'snow', 'ice'], // UNDER 0^
+    wind: ['wind', 'strong wind'],
+    rain: ['rain', 'rain forest', 'rainy', 'raining', 'rainbow'],
+    clouds: ['cloudy', 'cloudy sky'],
+    sun: ['sun', 'sunny', 'sunny forest'],
+    hot: ['summer', 'summer beach', 'spring', 'flowers'], // OVER 25^
 }
 
 function chooseQuery() {
+    if (temp < 0) {
+        query = queries.cold[ Math.floor( Math.random() * (queries.cold.length+1) ) ];
+    }
+    else if (temp > 25) {
+        query = queries.sun[ Math.floor( Math.random() * (queries.sun.length+1) ) ];
+    }
+    else if (temp >= 0 && temp <= 25) {
+        if (desc.includes('wind') ) {
+            query = queries.wind[ Math.floor( Math.random * (queries.wind.length+1) ) ];
+        }
+        else if (desc.includes('rain') ) {
+            query = queries.rain[ Math.floor( Math.random * (queries.rain.length+1) ) ];
+        }
+        else if (desc.includes('clouds') ) {
+            query = queries.clouds[ Math.floor( Math.random * (queries.clouds.length+1) ) ];
+        }
+        else if (desc.includes('sun') ) {
+            query = queries.sun[ Math.floor( Math.random * (queries.sun.length+1) ) ];
+        }
+    }
+
 
 }
 
