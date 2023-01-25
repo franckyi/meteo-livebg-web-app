@@ -12,42 +12,50 @@
   <link rel="manifest" href="images/favicon/site.webmanifest">
 </head>
 <body>
-    <main>
-      
-      <form id="form" action="">
-        <input id="input-city" list="results" type="text" placeholder="e.g. Capri" aria-label="form">
-        <input id="btn" type="submit" hidden>
-      </form>
 
-      <div class="current-date">
-        <span id="time" class="time"></span>
-        <span id="date" class="date"></span>
-      </div>
+  <main>
+    
+    <div class="current-date">
+      <span id="time" class="time"></span>
+      <span id="date" class="date"></span>
+      <img class="weather-icon" id="weather-icon" src="" alt="weather icon">
+    </div>
+    
+    <form id="form" action="">
+      <input id="input-city" list="results" type="text" placeholder="e.g. Capri" aria-label="form">
+      <input id="btn" type="submit" hidden>
+    </form>
 
-      <div class="temp">
-        <span class="c">no data</span>
+    <div class="temp">
+      <span class="c">no data</span>
+      <div class="minor-info">
         <span id="feel">no data</span>
         <div class="range">
             <span class="min">no data</span>
             <span class="max">no data</span>
         </div>
+      </div>
     </div>
 
-      <article>
-        <img class="weather-icon" id="weather-icon" src="" alt="weather icon">
-        <p id="description" class="desc">no data</p>
-        <h1 class="location">Service unavailable</h1>
-        <p id="pressure"></p>
-        <p id="humidity"></p>
-        <p id="wind-speed"></p>
-        <div class="day">
-            <span class="label"><img src="images/sunrise.png" alt="sunrise icon" height="40px"> <span class="sunrise">no data</span></span>
-            <span class="label"><img src="images/sunset.png" alt="sunset icon" height="40px"> <span class="sunset">no data</span></span>
-        </div>
-      </article>
-    </main>
-    <script src="js/config.js" type="module"></script>
-    <script src="js/main.js" type="module"></script>
-    <script src="js/background.js" type="module"></script>
+    <div class="city">
+      <p id="description" class="desc">no data</p>
+      <h1 class="location">Service unavailable</h1>
+    </div>
+
+  </main>
+
+  <article>
+    <p id="humidity"></p>
+    <p id="wind-speed"></p>
+    <p id="pressure"></p>
+    <div class="day">
+        <span class="label"><img src="images/sunrise.png" alt="sunrise icon" height="40px"> <span class="sunrise">no data</span></span>
+        <span class="label"><img src="images/sunset.png" alt="sunset icon" height="40px"> <span class="sunset">no data</span></span>
+    </div>
+  </article>
+
+  <script src="js/config.js" type="module"></script>
+  <script src="js/main.js" type="module"></script>
+  <script src="js/background.js" type="module"></script>
 </body>
 </html>

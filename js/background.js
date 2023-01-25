@@ -67,7 +67,7 @@ function fetchImage() {
         console.log(data.photos);
         replaceBackground(data);
     })
-    .catch(document.body.style.backgroundColor = '#ADD8E6'); // FALLBACK COLOR
+    // .catch(document.body.style.backgroundColor = '#ADD8E6'); // FALLBACK COLOR
 }
 
 function replaceBackground(data) {
@@ -87,5 +87,5 @@ function replaceBackground(data) {
         console.log('is LANDSCAPE');
         imageUrl = photoList[randomIndex].src.landscape;
     }
-    document.body.style.backgroundImage = 'url(' + imageUrl + ')';
+    document.querySelector('main').style.backgroundImage = 'url(' + imageUrl + ')';
 }
