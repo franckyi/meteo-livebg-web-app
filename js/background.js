@@ -32,24 +32,24 @@ export function chooseQuery() {
         }
         else {
             if (desc.includes('wind') ) {
-                query = queries.wind[ Math.floor( Math.random * ((queries.wind.length)+1) ) ];
+                query = queries.wind[ Math.floor( Math.random() * ((queries.wind.length)+1) ) ];
                 console.log('0 > temp < 25');
             }
             else if (desc.includes('rain') ) {
-                query = queries.rain[ Math.floor( Math.random * ((queries.rain.length)+1) ) ];
+                query = queries.rain[ Math.floor( Math.random() * ((queries.rain.length)+1) ) ];
                 console.log('rain');
             }
             else if (desc.includes('clouds') ) {
-                query = queries.clouds[ Math.floor( Math.random * ((queries.clouds.length)+1) ) ];
+                query = queries.clouds[ Math.floor( Math.random() * ((queries.clouds.length)+1) ) ];
                 console.log('clouds');
-                console.log(queries.clouds[ Math.floor( Math.random * ((queries.clouds.length)+1) ) ]);
+                console.log(queries.clouds[ Math.floor( Math.random() * ((queries.clouds.length)+1) ) ]);
             }
             else if (desc.includes('clear') ) {
-                query = queries.clear[ Math.floor( Math.random * ((queries.clear.length)+1) ) ];
+                query = queries.clear[ Math.floor( Math.random() * ((queries.clear.length)+1) ) ];
                 console.log('clear');
             }
             else if (desc.includes('sun') ) {
-                query = queries.sun[ Math.floor( Math.random * ((queries.sun.length)+1) ) ];
+                query = queries.sun[ Math.floor( Math.random() * ((queries.sun.length)+1) ) ];
                 console.log('sun');
             }
         }
