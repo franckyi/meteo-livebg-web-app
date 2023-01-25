@@ -2,14 +2,12 @@ html, *, *::after, *::before {
   padding: 0;
   margin: 0;
   font-family: Lato, sans-serif;
-  font-size: 16px;
+  font-size: 14px;
 }
 
 body {
   height: 100vh;
   background: #ADD8E6;
-  background-repeat: no-repeat;
-  background-size: cover;
   color: #fff;
   text-shadow: #222 1px 3px 9px;
 }
@@ -17,27 +15,48 @@ body {
 main {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
+  // align-items: center;
+  // justify-content: center;
+  // gap: 10px;
+  height: 80vh;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  form {
+    width: 100vw;
+  
+    input {
+      width: 100%;
+      height: 2em;
+      opacity: .8;
+      text-align: center;
+      font-size: 0.8em;
+    }
+  }
+
+  .weather-icon {
+    width: 90px;
+  }
+  
+  .c {
+    font-size: 9em;
+  }
+
 }
 
-form {
-  width: 100vw;
-}
+article {
+  display: flex;
+  flex-wrap: nowrap;
+  height: 20vh;
 
-input {
-  width: 100%;
-  height: 2em;
-  opacity: .8;
-  text-align: center;
-  font-size: 0.8em;
-}
+  .info-box {
+    padding: 90px;
+    // width: 25%;
+    background: rgb(140, 140, 140);
 
-.weather-icon {
-  width: 90px;
-}
-
-.c {
-  font-size: 9em;
+    &.day {
+      display: flex;
+      flex-direction: column;
+    }
+  }
 }
