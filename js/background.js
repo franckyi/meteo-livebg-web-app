@@ -6,13 +6,13 @@ console.log(`temp: ${temp}`);
 console.log(`desc: ${desc}`);
 
 let queries = {
-    cold: ['winter', 'snow', 'ice'], // UNDER 0^
+    cold: ['winter', 'snow', 'snow forest', 'winter nature'], // UNDER 0^
     wind: ['wind', 'strong wind'],
     rain: ['rain', 'rain forest', 'rainy', 'raining', 'rainbow'],
     clouds: ['cloudy', 'cloudy sky'],
     clear: ['clear', 'clear sky'],
     sun: ['sun', 'sunny', 'sunny forest'],
-    hot: ['summer', 'summer beach', 'spring', 'flowers'], // OVER 25^
+    hot: ['summer', 'summer beach', 'spring', 'flowers'], // OVER 22^
 }
 
 let query;
@@ -21,19 +21,20 @@ chooseQuery();
 
 export function chooseQuery() {
     console.log('✅ called chooseQuery()');
+    console.log(`query: ${query}`);
 
-        if (temp < 0) {
+        if (temp <= 0) {
             query = queries.cold[ Math.floor( Math.random() * (queries.cold.length+1) ) ];
             console.log('temp < 0');
         }
-        else if (temp > 25) {
+        else if (temp >= 22) {
             query = queries.sun[ Math.floor( Math.random() * ((queries.sun.length)+1) ) ];
-            console.log('temp > 25');
+            console.log('temp > 22');
         }
-        else {
+        else if (temp > 0 && temp < 22) {
             if (desc.includes('wind') ) {
                 query = queries.wind[ Math.floor( Math.random() * ((queries.wind.length)+1) ) ];
-                console.log('0 > temp < 25');
+                console.log('0 > temp < 22');
             }
             else if (desc.includes('rain') ) {
                 query = queries.rain[ Math.floor( Math.random() * ((queries.rain.length)+1) ) ];
@@ -56,8 +57,6 @@ export function chooseQuery() {
         fetchImage();
 }
 
-console.log(`query: ${query}`);
-
 function fetchImage() {
     console.log('✅ called fetchImage()');
 
@@ -79,6 +78,7 @@ function replaceBackground(data) {
     let randomIndex = Math.floor( Math.random() * ((data.photos.length)+1) );
     let imageUrl;
 
+    // TODO FIX THESE CONDITIONS OR USE PROMISE
     if (portrait) {
         console.log('is PORTRAIT');
         imageUrl = data.photos[randomIndex].src.portrait;
