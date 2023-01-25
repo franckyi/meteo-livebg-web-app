@@ -87,5 +87,5 @@ function replaceBackground(data) {
         console.log('is LANDSCAPE');
         imageUrl = photoList[randomIndex].src.landscape;
     }
-    document.querySelector('main').style.backgroundImage = 'url(' + imageUrl + ')';
+    document.body.style.backgroundImage = 'url(' + imageUrl + ')';
 }
