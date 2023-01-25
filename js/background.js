@@ -2,10 +2,8 @@ import { PEXELS_APIKEY } from '../js/config.js';
 
 let temp = localStorage.getItem('temperature');
 let desc = localStorage.getItem('description');
-console.warn('temp');
-console.log(temp);
-console.warn('desc');
-console.log(desc);
+console.log(`temp: ${temp}`);
+console.log(`desc: ${desc}`);
 
 let queries = {
     cold: ['winter', 'snow', 'ice'], // UNDER 0^
@@ -22,6 +20,8 @@ let query;
 chooseQuery();
 
 export function chooseQuery() {
+    console.log('✅ called chooseQuery()');
+
         if (temp < 0) {
             query = queries.cold[ Math.floor( Math.random() * (queries.cold.length+1) ) ];
             console.log('temp < 0');
@@ -53,21 +53,27 @@ export function chooseQuery() {
                 console.log('sun');
             }
         }
+        fetchImage();
 }
 
-console.warn('query');
-console.log(query);
+console.log(`query: ${query}`);
 
-fetch(`https://api.pexels.com/v1/search?query=${query}`,
-{ headers: { Authorization: PEXELS_APIKEY } } )
-.then( resp => resp.json() )
-.then( data => {
-    console.log(data.photos);
-    getImage(data);
-})
-.catch(document.body.style.backgroundColor = '#ADD8E6'); // FALLBACK COLOR
+function fetchImage() {
+    console.log('✅ called fetchImage()');
 
-function getImage(data) {
+    fetch(`https://api.pexels.com/v1/search?query=${query}`,
+    { headers: { Authorization: PEXELS_APIKEY } } )
+    .then( resp => resp.json() )
+    .then( data => {
+        console.log(data.photos);
+        replaceBackground(data);
+    })
+    .catch(document.body.style.backgroundColor = '#ADD8E6'); // FALLBACK COLOR
+}
+
+function replaceBackground(data) {
+    console.log('✅ called replaceBackground()');
+
     let portrait = window.matchMedia('orientation: portrait');
     let landscape = window.matchMedia('orientation: landscape');
     let randomIndex = Math.floor( Math.random() * ((data.photos.length)+1) );

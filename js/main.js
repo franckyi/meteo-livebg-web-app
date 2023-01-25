@@ -1,6 +1,5 @@
 import { OPENWEATHER_APIKEY } from '../js/config.js';
 import { chooseQuery } from '../js/background.js';
-// export let temperature;
 
 const tempC = document.querySelector('.c');
 const desc = document.querySelector('.desc');
@@ -93,7 +92,6 @@ const updateData = function(data) {
     // }
     // passa();
 
-
     let { feels_like, temp_min, temp_max, pressure, humidity } = data.main;
     let { speed } = data.wind;
     let { sunrise, sunset } = data.sys;
@@ -103,7 +101,7 @@ const updateData = function(data) {
     iconHTML.src = iconUrl;
     loc.textContent = `${location}`;
     desc.textContent = `${description}`;
-    tempC.textContent = `${temp.toFixed(1)} °C`; // I WANT THIS VALUE
+    tempC.textContent = `${temp.toFixed(1)} °C`;
     tempFeel.textContent = `${feels_like.toFixed(1)} °C`;
     tempMin.textContent = `min ${temp_min.toFixed(1)} °C`;
     tempMax.textContent = `max ${temp_max.toFixed(1)} °C`;
@@ -112,13 +110,15 @@ const updateData = function(data) {
     windSpeed.textContent = `wind speed: ${speed}`;
     sunriseHTML.textContent = `${sunriseGMT.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'} )}`;
     sunsetHTML.textContent = `${sunsetGMT.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'} )}`;
-    console.log( '✅ update data OK' )
+    console.log( '✅ updated data' );
+    // REPLACE BACKGROUND !!
+    chooseQuery();
 }
 
 const fetchPosition = function(useLatLon) {
     fetch(useLatLon).then( resp => resp.json() )
         .then( data => {
-        console.log( '✅ fetch position OK' )
+        console.log( '✅ fetched position' )
         updateData(data);
     });
 }
