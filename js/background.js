@@ -9,7 +9,7 @@ let queries = {
     cold: ['winter', 'snow', 'snow forest', 'winter nature'], // UNDER 0^
     wind: ['wind', 'strong wind'],
     rain: ['rain', 'rain forest', 'rainy', 'raining', 'rainbow'],
-    clouds: ['cloudy', 'cloudy sky'],
+    clouds: ['cloudy', 'cloudy sky', 'clouds mountains'],
     clear: ['clear', 'clear sky'],
     sun: ['sun', 'sunny', 'sunny forest'],
     hot: ['summer', 'summer beach', 'spring', 'flowers'], // OVER 22^
