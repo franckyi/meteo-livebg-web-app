@@ -20,8 +20,6 @@ let query;
 chooseQuery();
 
 export function chooseQuery() {
-    console.log('✅ called chooseQuery()');
-    console.log(`query: ${query}`);
 
         if (temp <= 0) {
             query = queries.cold[ Math.floor( Math.random() * (queries.cold.length+1) ) ];
@@ -54,6 +52,10 @@ export function chooseQuery() {
                 console.log('sun');
             }
         }
+
+        console.log('✅ called chooseQuery()');
+        console.log(`query: ${query}`);
+        
         fetchImage();
 }
 
