@@ -69,7 +69,6 @@ function fetchImage() {
         console.log(data.photos);
         replaceBackground(data);
     })
-    // .catch(document.body.style.backgroundColor = '#ADD8E6'); // FALLBACK COLOR ADD IN CSS
 }
 
 function replaceBackground(data) {

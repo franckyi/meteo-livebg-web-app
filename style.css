@@ -1,8 +1,9 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap");
 html, *, *::after, *::before {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  font-family: Lato, sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-size: 18px;
 }
 
@@ -13,45 +14,63 @@ body {
   text-shadow: #222 1px 3px 9px;
 }
 
-main {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-  height: 80vh;
-  padding-top: 20px;
-  background-repeat: no-repeat;
-  background-size: cover;
-  text-align: center;
-}
-main form {
+form {
   width: 100vw;
-  position: absolute;
-  top: 0;
+  height: 5vh;
 }
-main form input {
+form input {
   width: 100%;
   height: 2em;
   text-align: center;
   font-size: 1em;
   border: none;
-  background: rgba(34, 34, 34, 0.62);
+  background: rgba(34, 34, 34, 0.8);
   color: white;
 }
+
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-end;
+  height: 75vh;
+  padding-right: 5%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  text-align: center;
+}
+main::after {
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 100%);
+  z-index: -1;
+}
 main .location {
-  font-size: 2rem;
+  text-align: right;
+  font-size: 1.5rem;
+  letter-spacing: 1.5px;
+  font-weight: 700;
 }
 main .icon {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
 }
 main .icon .weather-icon {
   width: 38px;
 }
+main .temp {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
 main .temp .c {
   font-size: 4rem;
-  font-weight: 900;
+  font-weight: 300;
 }
 main .temp .feel::before {
   content: "feel like ";
@@ -63,7 +82,7 @@ article {
   align-items: center;
   flex-wrap: nowrap;
   height: 20vh;
-  background: rgba(34, 34, 34, 0.62);
+  background-image: linear-gradient(360deg, #21d4fdb3 0%, #b721ffa1 100%);
 }
 article .info-box {
   width: 25%;
@@ -75,8 +94,7 @@ article .info-box {
   margin: 5px;
   border-radius: 20px;
   text-align: center;
-  background-color: #0093E9;
-  background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
+  background-color: rgba(0, 0, 0, 0.4);
 }
 article .info-box::before {
   margin-bottom: 0.5rem;

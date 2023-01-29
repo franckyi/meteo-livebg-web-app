@@ -13,12 +13,12 @@
 </head>
 <body>
 
-  <main>
+  <form id="form" action="">
+    <input id="input-city" list="results" type="text" placeholder="search a City" aria-label="form">
+    <input id="btn" type="submit" hidden>
+  </form>
 
-    <form id="form" action="">
-      <input id="input-city" list="results" type="text" placeholder="search a City" aria-label="form">
-      <input id="btn" type="submit" hidden>
-    </form>
+  <main>
 
     <div class="current-date">
       <span id="time" class="time"></span>
@@ -34,14 +34,10 @@
     </div>    
 
     <div class="temp">
+      <span class="max">no data</span>
       <span class="c">no data</span>
-      <div class="minor-info">
-        <span id="feel" class="feel">no data</span>
-        <div class="range">
-            <span class="min">no data</span>
-            <span class="max">no data</span>
-        </div>
-      </div>
+      <span id="feel" class="feel">no data</span>
+      <span class="min">no data</span>
     </div>
 
   </main>
