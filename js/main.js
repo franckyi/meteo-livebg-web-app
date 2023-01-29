@@ -91,11 +91,6 @@ console.log(data);
     tempFeel.textContent = `${feels_like.toFixed(1)} °C`;
     tempMin.textContent = `min ${temp_min.toFixed(1)} °C`;
     tempMax.textContent = `max ${temp_max.toFixed(1)} °C`;
-
-    // press.textContent = `pressure: ${pressure}`;
-    // humid.textContent = `humidity: ${humidity}`;
-    // windSpeed.textContent = `wind speed: ${speed}`;
-
     press.textContent = pressure;
     humid.textContent = `${humidity}`;
     windSpeed.textContent = `${speed}`;
