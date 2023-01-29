@@ -1,5 +1,5 @@
 import { OPENWEATHER_APIKEY } from '../js/config.js';
-import { chooseQuery } from '../js/background.js';
+import { chooseImage } from '../js/background.js';
 
 const tempC = document.querySelector('.c');
 const desc = document.querySelector('.desc');
@@ -89,14 +89,20 @@ const updateData = function(data) {
     tempFeel.textContent = `${feels_like.toFixed(1)} °C`;
     tempMin.textContent = `min ${temp_min.toFixed(1)} °C`;
     tempMax.textContent = `max ${temp_max.toFixed(1)} °C`;
+
     press.textContent = `pressure: ${pressure}`;
     humid.textContent = `humidity: ${humidity}`;
     windSpeed.textContent = `wind speed: ${speed}`;
+
+    // press.textContent = `${pressure}`;
+    // humid.textContent = `${humidity}`;
+    // windSpeed.textContent = `${speed}`;
     sunriseHTML.textContent = `${sunriseGMT.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'} )}`;
     sunsetHTML.textContent = `${sunsetGMT.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'} )}`;
     console.log( '✅ updated data' );
     // REPLACE BACKGROUND ONLY AFTER CONFIRMING SUGGESTION (NAMED OPTION IN HTML)!!
-    chooseQuery();
+    chooseImage();
+    console.log( '✅ called chooseImage()' );
 }
 
 const fetchPosition = function(useLatLon) {
@@ -114,7 +120,7 @@ const fetchQuery = function(requestedLocation) {
         if (data.length > 0) {
             data.forEach( d => { capturedOptions.push(d) } );
             displayOptionsHTML(data);
-            chooseQuery();
+            // chooseImage(); // CALL ONLY WHEN CALLING UPDATEDATA()
         }
     });
 }

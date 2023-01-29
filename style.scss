@@ -17,7 +17,6 @@ main {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 80vh;
   background-repeat: no-repeat;
   background-size: cover;
   text-align: center;
@@ -55,8 +54,6 @@ main {
 article {
   display: flex;
   flex-wrap: nowrap;
-  height: 20vh;
-  padding-bottom: 5em;
   background: rgba(34, 34, 34, 0.62);
 
   .info-box {
@@ -70,6 +67,24 @@ article {
     text-align: center;
     background-color: #0093E9;
     background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
+
+    // &.humidity {
+    //   &::before {
+    //   content: 'humidity';
+    //   }
+    // }
+
+    // &.pressure {
+    //   &::before {
+    //   content: 'pressure';
+    //   }
+    // }
+
+    // &.wind {
+    //   &::before {
+    //   content: 'wind';
+    //   }
+    // }
     
     &.day {
       display: flex;
@@ -79,5 +94,6 @@ article {
         height: 30px;
       }
     }
+
   }
 }

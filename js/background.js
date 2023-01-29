@@ -17,9 +17,9 @@ let queries = {
 
 let query;
 
-chooseQuery();
+chooseImage();
 
-export function chooseQuery() {
+export function chooseImage() {
 
         if (temp <= 0) {
             query = queries.cold[ Math.floor( Math.random() * (queries.cold.length+1) ) ];
@@ -53,7 +53,7 @@ export function chooseQuery() {
             }
         }
 
-        console.log('✅ called chooseQuery()');
+        console.log('✅ called chooseImage()');
         console.log(`query: ${query}`);
         
         fetchImage();

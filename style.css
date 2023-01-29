@@ -17,7 +17,6 @@ main {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 80vh;
   background-repeat: no-repeat;
   background-size: cover;
   text-align: center;
@@ -49,8 +48,6 @@ main .c {
 article {
   display: flex;
   flex-wrap: nowrap;
-  height: 20vh;
-  padding-bottom: 5em;
   background: rgba(34, 34, 34, 0.62);
 }
 article .info-box {
