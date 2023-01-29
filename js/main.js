@@ -7,14 +7,6 @@ const desc = document.querySelector('.desc');
 let temp;
 let description;
 
-// let amico = ''; // PROVA A CAPIRE COME PASSARE L'AMICO FUORI FINO A QUI
-// function ponte() {
-//     console.warn(temperature,temp);
-// }
-// ponte();
-// console.warn('temp');
-// console.info(temp);
-
 const form = document.getElementById('form');
 const inputCity = document.getElementById('input-city');
 const btn = document.getElementById('btn');
@@ -83,14 +75,6 @@ const updateData = function(data) {
 
     localStorage.setItem('temperature', temp);
     localStorage.setItem('description', description);
-    
-    // function passa() {
-    //     temperature = temp;
-    //     console.warn(`temp: ${temp}, temperature: ${temperature}`);
-    //     console.warn(`Passo temperature`);
-    //     ponte();
-    // }
-    // passa();
 
     let { feels_like, temp_min, temp_max, pressure, humidity } = data.main;
     let { speed } = data.wind;
@@ -111,7 +95,7 @@ const updateData = function(data) {
     sunriseHTML.textContent = `${sunriseGMT.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'} )}`;
     sunsetHTML.textContent = `${sunsetGMT.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'} )}`;
     console.log( '✅ updated data' );
-    // REPLACE BACKGROUND !!
+    // REPLACE BACKGROUND ONLY AFTER CONFIRMING SUGGESTION (NAMED OPTION IN HTML)!!
     chooseQuery();
 }
 
@@ -130,22 +114,8 @@ const fetchQuery = function(requestedLocation) {
         if (data.length > 0) {
             data.forEach( d => { capturedOptions.push(d) } );
             displayOptionsHTML(data);
-
             chooseQuery();
         }
-        // else {
-        //     console.warn('Found nothing, so trying again');
-        //     let tempStr = inputCity.value.split(' ');
-        //     requestedLocation.name = tempStr[0];
-        //     console.warn('tempStr[0]');
-        //     console.log(tempStr[0]);
-        //     fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${tempStr[0]}&limit=5&appid=${OPENWEATHER_APIKEY}&units=metric`)
-        //         .then( resp => resp.json() ).then( data => {
-        //         if (data.length > 0) {
-        //             data.forEach( d => { capturedOptions.push(d) } );
-        //             displayOptionsHTML(data);
-        //         }
-        // }
     });
 }
 
