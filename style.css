@@ -98,10 +98,13 @@ article .info-box {
 }
 article .info-box__icon {
   height: 25px;
-  margin-bottom: 10px;
+  margin-bottom: 7px;
+}
+article .info-box__icon.sun-icon {
+  height: 20px;
 }
 article .info-box__label {
-  font-size: 0.8rem;
+  font-size: 0.7rem;
 }
 article .info-box.day {
   display: flex;
