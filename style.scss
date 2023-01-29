@@ -17,7 +17,9 @@ main {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  height: 75vh;
+  align-items: center;
+  height: 80vh;
+  padding-top: 20px;
   background-repeat: no-repeat;
   background-size: cover;
   text-align: center;
@@ -32,6 +34,7 @@ main {
       height: 2em;
       text-align: center;
       font-size: 1em;
+      border: none;
       background: rgba(34, 34, 34, 0.62);
       color: white;
     }
@@ -41,23 +44,37 @@ main {
     font-size: 2rem;
   }
 
-  .weather-icon {
-    width: 90px;
+  .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .weather-icon {
+      width: 38px;
+    }
+  }
+
+  .temp {
+    .c {
+      font-size: 4rem;
+      font-weight: 900;
+    }
+    .feel {
+      &::before {
+        content: 'feel like ';
+        font-style: italic;
+      } 
+    }
+  
   }
   
-  .c {
-    font-size: 4rem;
-    font-weight: 900;
-  }
 
 }
 
 article {
   display: flex;
+  align-items: center;
   flex-wrap: nowrap;
-  height: 25vh;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+  height: 20vh;
   background: rgba(34, 34, 34, 0.62);
 
   .info-box {
@@ -99,15 +116,13 @@ article {
       display: flex;
       flex-direction: column;
 
+      &::before {
+        content: 'sun';
+      }
+
       .label > span {
         height: 30px;
         font-size: .8rem;
-        &.sunrise::before {
-          content: 'sunrise';
-        }
-        &.sunset::before {
-          content: 'sunset';
-        }
         &::before {
           display: flex;
           flex-direction: column;

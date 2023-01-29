@@ -45,7 +45,7 @@ let capturedOptions = [];
     let minutes = new Date().getMinutes();
     minutes = minutes < 10 ? `0${minutes}` : minutes;
     time.innerHTML = `${hour}:${minutes}`;
-    today.innerHTML = `${currentDate} ${months[currentMonth]} ${currentYear}`;
+    today.innerHTML = `${currentDate}, ${months[currentMonth]} ${currentYear}`;
 })();
 
 if (navigator.geolocation) {
