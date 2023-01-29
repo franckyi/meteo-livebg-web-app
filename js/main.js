@@ -57,13 +57,15 @@ if (navigator.geolocation) {
 }
 
 const updateData = function(data) {
+console.log(data);
+
     const iconHTML = document.getElementById('weather-icon');
     const loc = document.querySelector('.location');
     const tempFeel = document.getElementById('feel');
     const tempMin = document.querySelector('.min');
-    const press = document.getElementById('pressure');
-    const humid = document.getElementById('humidity');
-    const windSpeed = document.getElementById('wind-speed');
+    const press = document.querySelector('.pressure');
+    const humid = document.querySelector('.humidity');
+    const windSpeed = document.querySelector('.wind');
     const tempMax = document.querySelector('.max');
     const sunriseHTML = document.querySelector('.sunrise');
     const sunsetHTML = document.querySelector('.sunset');
@@ -90,19 +92,20 @@ const updateData = function(data) {
     tempMin.textContent = `min ${temp_min.toFixed(1)} °C`;
     tempMax.textContent = `max ${temp_max.toFixed(1)} °C`;
 
-    press.textContent = `pressure: ${pressure}`;
-    humid.textContent = `humidity: ${humidity}`;
-    windSpeed.textContent = `wind speed: ${speed}`;
+    // press.textContent = `pressure: ${pressure}`;
+    // humid.textContent = `humidity: ${humidity}`;
+    // windSpeed.textContent = `wind speed: ${speed}`;
 
-    // press.textContent = `${pressure}`;
-    // humid.textContent = `${humidity}`;
-    // windSpeed.textContent = `${speed}`;
+    press.textContent = pressure;
+    humid.textContent = `${humidity}`;
+    windSpeed.textContent = `${speed}`;
     sunriseHTML.textContent = `${sunriseGMT.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'} )}`;
     sunsetHTML.textContent = `${sunsetGMT.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'} )}`;
     console.log( '✅ updated data' );
     // REPLACE BACKGROUND ONLY AFTER CONFIRMING SUGGESTION (NAMED OPTION IN HTML)!!
     chooseImage();
     console.log( '✅ called chooseImage()' );
+    console.log(`test ${pressure}`);
 }
 
 const fetchPosition = function(useLatLon) {
