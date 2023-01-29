@@ -14,7 +14,7 @@
 <body>
 
   <form id="form" action="">
-    <input id="input-city" list="results" type="text" placeholder="search a City" aria-label="form">
+    <input id="input-city" list="results" type="text" placeholder="search City" aria-label="form">
     <input id="btn" type="submit" hidden>
   </form>
 
@@ -43,14 +43,25 @@
   </main>
 
   <article>
-    <div class="info-box humidity"></div>
-    <div class="info-box wind"></div>
-    <div class="info-box pressure"></div>
+    <div class="info-box">
+      <img class="info-box__icon" src="./images/hum.png" alt="humidity">
+      <span class="info-box__label">humidity</span>
+      <span class="humidity"></span>
+    </div>
+    <div class="info-box">
+      <img class="info-box__icon" src="./images/wind.png" alt="wind">
+      <span class="info-box__label">wind</span>
+      <span class="wind"></span>
+    </div>
+    <div class="info-box">
+      <img class="info-box__icon" src="./images/pres.png" alt="pressure">
+      <span class="info-box__label">pressure</span>
+      <span class="pressure"></span>
+    </div>
     <div class="day info-box">
-        <span class="label">
-          <span class="sunrise">no data</span></span>
-        <span class="label">
-          <span class="sunset">no data</span></span>
+      <img class="info-box__icon" src="./images/sun.png" alt="sunrise and sunset">
+      <span class="sunrise">no data</span>
+      <span class="sunset">no data</span>
     </div>
   </article>
 

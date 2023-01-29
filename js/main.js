@@ -40,12 +40,11 @@ let capturedOptions = [];
         'November',
         'December'
     ]
-    let currentYear = new Date().getFullYear();
     let hour = new Date().getHours();
     let minutes = new Date().getMinutes();
     minutes = minutes < 10 ? `0${minutes}` : minutes;
     time.innerHTML = `${hour}:${minutes},`;
-    today.innerHTML = `${currentDate} ${months[currentMonth]} ${currentYear}`;
+    today.innerHTML = `${currentDate} ${months[currentMonth]}`;
 })();
 
 if (navigator.geolocation) {

@@ -70,7 +70,7 @@ main .temp {
 }
 main .temp .c {
   font-size: 4rem;
-  font-weight: 300;
+  font-weight: 700;
 }
 main .temp .feel::before {
   content: "feel like ";
@@ -96,33 +96,18 @@ article .info-box {
   text-align: center;
   background-color: rgba(0, 0, 0, 0.4);
 }
-article .info-box::before {
-  margin-bottom: 0.5rem;
+article .info-box__icon {
+  height: 25px;
+  margin-bottom: 10px;
+}
+article .info-box__label {
   font-size: 0.8rem;
-}
-article .info-box.humidity::before {
-  content: "humidity";
-}
-article .info-box.pressure::before {
-  content: "pressure";
-}
-article .info-box.wind::before {
-  content: "wind";
 }
 article .info-box.day {
   display: flex;
   flex-direction: column;
 }
-article .info-box.day::before {
-  content: "sun";
-}
-article .info-box.day .label > span {
-  height: 30px;
-  font-size: 0.8rem;
-}
-article .info-box.day .label > span::before {
-  display: flex;
-  flex-direction: column;
+article .info-box.day span {
   font-size: 0.8rem;
 }
 
