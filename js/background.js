@@ -13,6 +13,7 @@ let queries = {
     clear: ['clear', 'clear sky'],
     sun: ['sun', 'sunny', 'sunny forest'],
     hot: ['summer', 'summer beach', 'spring', 'flowers'], // OVER 22^
+    undefined: ['forest background', 'forest']
 }
 
 let query;
@@ -32,24 +33,21 @@ export const chooseWord = function () {
         else if (temp > 0 && temp < 22) {
             if (description.includes('wind') ) {
                 query = queries.wind[ Math.floor( Math.random() * ((queries.wind.length)+1) ) ];
-                // console.log('0 > temp < 22');
             }
             else if (description.includes('rain') ) {
                 query = queries.rain[ Math.floor( Math.random() * ((queries.rain.length)+1) ) ];
-                // console.log('rain');
             }
             else if (description.includes('clouds') ) {
                 query = queries.clouds[ Math.floor( Math.random() * ((queries.clouds.length)+1) ) ];
-                // console.log('clouds');
-                // console.log(queries.clouds[ Math.floor( Math.random() * ((queries.clouds.length)+1) ) ]);
             }
             else if (description.includes('clear') ) {
                 query = queries.clear[ Math.floor( Math.random() * ((queries.clear.length)+1) ) ];
-                // console.log('clear');
             }
             else if (description.includes('sun') ) {
                 query = queries.sun[ Math.floor( Math.random() * ((queries.sun.length)+1) ) ];
-                // console.log('sun');
+            }
+            else if (description.includes('undefined') ) {
+                query = queries.undefined[ Math.floor( Math.random() * ((queries.undefined.length)+1) ) ];
             }
         }
 

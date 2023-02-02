@@ -38,6 +38,9 @@ form {
     border: none;
     background: rgba(34, 34, 34, 0.8);
     color: white;
+    &:focus-visible {
+      outline-color: #932faf;
+    }
   }
 }
 
@@ -111,6 +114,7 @@ article {
   @media screen and (orientation: landscape) {
     margin-top: 0;
     flex-direction: column;
+    justify-content: center;
     width: 20vw;
   }
 

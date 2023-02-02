@@ -42,6 +42,9 @@ form input {
   background: rgba(34, 34, 34, 0.8);
   color: white;
 }
+form input:focus-visible {
+  outline-color: #932faf;
+}
 
 main {
   display: flex;
@@ -112,6 +115,7 @@ article {
   article {
     margin-top: 0;
     flex-direction: column;
+    justify-content: center;
     width: 20vw;
   }
 }
