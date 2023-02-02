@@ -98,7 +98,6 @@ console.log(data);
     console.log( '✅ updated data' );
     // REPLACE BACKGROUND ONLY AFTER CONFIRMING SUGGESTION (NAMED OPTION IN HTML)!!
     chooseWord();
-    console.log( '✅ called chooseWord()' );
 }
 
 const fetchPosition = function(useLatLon) {

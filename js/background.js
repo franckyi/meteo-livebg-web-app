@@ -1,9 +1,9 @@
 import { PEXELS_APIKEY } from '../js/config.js';
 
 let temp = localStorage.getItem('temperature');
-let desc = localStorage.getItem('description');
+let description = localStorage.getItem('description');
 console.log(`temp: ${temp}`);
-console.log(`desc: ${desc}`);
+console.log(`description: ${description}`);
 
 let queries = {
     cold: ['winter', 'snow', 'snow forest', 'winter nature'], // UNDER 0^
@@ -17,9 +17,9 @@ let queries = {
 
 let query;
 
-chooseWord();
+// chooseWord();
 
-export function chooseWord() {
+export const chooseWord = function () {
 
         if (temp <= 0) {
             query = queries.cold[ Math.floor( Math.random() * (queries.cold.length+1) ) ];
@@ -30,24 +30,24 @@ export function chooseWord() {
             // console.log('temp > 22');
         }
         else if (temp > 0 && temp < 22) {
-            if (desc.includes('wind') ) {
+            if (description.includes('wind') ) {
                 query = queries.wind[ Math.floor( Math.random() * ((queries.wind.length)+1) ) ];
                 // console.log('0 > temp < 22');
             }
-            else if (desc.includes('rain') ) {
+            else if (description.includes('rain') ) {
                 query = queries.rain[ Math.floor( Math.random() * ((queries.rain.length)+1) ) ];
                 // console.log('rain');
             }
-            else if (desc.includes('clouds') ) {
+            else if (description.includes('clouds') ) {
                 query = queries.clouds[ Math.floor( Math.random() * ((queries.clouds.length)+1) ) ];
                 // console.log('clouds');
                 // console.log(queries.clouds[ Math.floor( Math.random() * ((queries.clouds.length)+1) ) ]);
             }
-            else if (desc.includes('clear') ) {
+            else if (description.includes('clear') ) {
                 query = queries.clear[ Math.floor( Math.random() * ((queries.clear.length)+1) ) ];
                 // console.log('clear');
             }
-            else if (desc.includes('sun') ) {
+            else if (description.includes('sun') ) {
                 query = queries.sun[ Math.floor( Math.random() * ((queries.sun.length)+1) ) ];
                 // console.log('sun');
             }
