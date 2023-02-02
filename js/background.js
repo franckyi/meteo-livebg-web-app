@@ -17,44 +17,44 @@ let queries = {
 
 let query;
 
-chooseImage();
+chooseWord();
 
-export function chooseImage() {
+export function chooseWord() {
 
         if (temp <= 0) {
             query = queries.cold[ Math.floor( Math.random() * (queries.cold.length+1) ) ];
-            console.log('temp < 0');
+            // console.log('temp < 0');
         }
         else if (temp >= 22) {
             query = queries.sun[ Math.floor( Math.random() * ((queries.sun.length)+1) ) ];
-            console.log('temp > 22');
+            // console.log('temp > 22');
         }
         else if (temp > 0 && temp < 22) {
             if (desc.includes('wind') ) {
                 query = queries.wind[ Math.floor( Math.random() * ((queries.wind.length)+1) ) ];
-                console.log('0 > temp < 22');
+                // console.log('0 > temp < 22');
             }
             else if (desc.includes('rain') ) {
                 query = queries.rain[ Math.floor( Math.random() * ((queries.rain.length)+1) ) ];
-                console.log('rain');
+                // console.log('rain');
             }
             else if (desc.includes('clouds') ) {
                 query = queries.clouds[ Math.floor( Math.random() * ((queries.clouds.length)+1) ) ];
-                console.log('clouds');
-                console.log(queries.clouds[ Math.floor( Math.random() * ((queries.clouds.length)+1) ) ]);
+                // console.log('clouds');
+                // console.log(queries.clouds[ Math.floor( Math.random() * ((queries.clouds.length)+1) ) ]);
             }
             else if (desc.includes('clear') ) {
                 query = queries.clear[ Math.floor( Math.random() * ((queries.clear.length)+1) ) ];
-                console.log('clear');
+                // console.log('clear');
             }
             else if (desc.includes('sun') ) {
                 query = queries.sun[ Math.floor( Math.random() * ((queries.sun.length)+1) ) ];
-                console.log('sun');
+                // console.log('sun');
             }
         }
 
-        console.log('✅ called chooseImage()');
-        console.log(`query: ${query}`);
+        console.log('✅ called chooseWord()');
+        console.log(`chose word: ${query}`);
         
         fetchImage();
 }

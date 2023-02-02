@@ -1,5 +1,5 @@
 import { OPENWEATHER_APIKEY } from '../js/config.js';
-import { chooseImage } from '../js/background.js';
+import { chooseWord } from '../js/background.js';
 
 const tempC = document.querySelector('.c');
 const desc = document.querySelector('.desc');
@@ -97,9 +97,8 @@ console.log(data);
     sunsetHTML.textContent = `${sunsetGMT.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'} )}`;
     console.log( '✅ updated data' );
     // REPLACE BACKGROUND ONLY AFTER CONFIRMING SUGGESTION (NAMED OPTION IN HTML)!!
-    chooseImage();
-    console.log( '✅ called chooseImage()' );
-    console.log(`test ${pressure}`);
+    chooseWord();
+    console.log( '✅ called chooseWord()' );
 }
 
 const fetchPosition = function(useLatLon) {
@@ -117,7 +116,7 @@ const fetchQuery = function(requestedLocation) {
         if (data.length > 0) {
             data.forEach( d => { capturedOptions.push(d) } );
             displayOptionsHTML(data);
-            // chooseImage(); // CALL ONLY WHEN CALLING UPDATEDATA()
+            // chooseWord(); // CALL ONLY WHEN CALLING UPDATEDATA()
         }
     });
 }
