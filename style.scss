@@ -15,12 +15,20 @@ body {
   background-size: cover;
   color: #fff;
   text-shadow: #222 1px 3px 9px;
+  @media screen and (orientation: landscape) {
+    display: flex;
+    justify-content: space-between;
+  }
 }
 
 form {
   width: 100vw;
   height: 5vh;
   margin-bottom: 1em;
+  @media screen and (orientation: landscape) {
+    position: fixed;
+    width: 80vw;
+  }
 
   input {
     width: 100%;
@@ -41,6 +49,10 @@ main {
   align-items: flex-end;
   padding-right: 5%;
   text-align: center;
+  @media screen and (orientation: landscape) {
+    gap: 0;
+    width: 80%;
+  }
   &::after {
     content: '';
     width: 100%;
@@ -75,6 +87,10 @@ main {
     .c {
       font-size: 4rem;
       font-weight: 700;
+      @media screen and (orientation: landscape) {
+        width: 60vw;
+        text-align: right;
+      }
     }
     .feel {
       &::before {
@@ -92,6 +108,11 @@ article {
   align-items: center;
   margin-top: 1em;
   background-image: linear-gradient(360deg, #21d4fdb3 0%, #b721ffa1 100%);
+  @media screen and (orientation: landscape) {
+    margin-top: 0;
+    flex-direction: column;
+    width: 20vw;
+  }
 
   .info-box {
     width: 25%;
@@ -104,6 +125,10 @@ article {
     border-radius: 20px;
     text-align: center;
     background-color: rgba(0,0,0,.4);
+    @media screen and (orientation: landscape) {
+      width: 80%;
+      height: 5em;
+    }
 
     &__icon {
       height: 25px;

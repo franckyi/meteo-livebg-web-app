@@ -15,11 +15,23 @@ body {
   color: #fff;
   text-shadow: #222 1px 3px 9px;
 }
+@media screen and (orientation: landscape) {
+  body {
+    display: flex;
+    justify-content: space-between;
+  }
+}
 
 form {
   width: 100vw;
   height: 5vh;
   margin-bottom: 1em;
+}
+@media screen and (orientation: landscape) {
+  form {
+    position: fixed;
+    width: 80vw;
+  }
 }
 form input {
   width: 100%;
@@ -39,6 +51,12 @@ main {
   align-items: flex-end;
   padding-right: 5%;
   text-align: center;
+}
+@media screen and (orientation: landscape) {
+  main {
+    gap: 0;
+    width: 80%;
+  }
 }
 main::after {
   content: "";
@@ -73,6 +91,12 @@ main .temp .c {
   font-size: 4rem;
   font-weight: 700;
 }
+@media screen and (orientation: landscape) {
+  main .temp .c {
+    width: 60vw;
+    text-align: right;
+  }
+}
 main .temp .feel::before {
   content: "feel like ";
   font-style: italic;
@@ -83,6 +107,13 @@ article {
   align-items: center;
   margin-top: 1em;
   background-image: linear-gradient(360deg, #21d4fdb3 0%, #b721ffa1 100%);
+}
+@media screen and (orientation: landscape) {
+  article {
+    margin-top: 0;
+    flex-direction: column;
+    width: 20vw;
+  }
 }
 article .info-box {
   width: 25%;
@@ -95,6 +126,12 @@ article .info-box {
   border-radius: 20px;
   text-align: center;
   background-color: rgba(0, 0, 0, 0.4);
+}
+@media screen and (orientation: landscape) {
+  article .info-box {
+    width: 80%;
+    height: 5em;
+  }
 }
 article .info-box__icon {
   height: 25px;
