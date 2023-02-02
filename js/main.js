@@ -56,6 +56,7 @@ if (navigator.geolocation) {
 }
 
 const updateData = function(data) {
+console.log('data');
 console.log(data);
 
     const iconHTML = document.getElementById('weather-icon');

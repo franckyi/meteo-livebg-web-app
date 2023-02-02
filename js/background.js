@@ -74,19 +74,23 @@ function fetchImage() {
 function replaceBackground(data) {
     console.log('✅ called replaceBackground()');
 
-    let portrait = window.matchMedia('orientation: portrait');
-    let landscape = window.matchMedia('orientation: landscape');
+    // let portrait = window.matchMedia('orientation: portrait');
+    // let landscape = window.matchMedia('orientation: landscape');
     let randomIndex = Math.floor( Math.random() * ((data.photos.length)+1) );
     let imageUrl;
 
+    let h = window.innerHeight;
+    let w = window.innerWidth;
+
     // TODO FIX THESE CONDITIONS OR USE PROMISE
-    if (portrait) {
+    if (h > w) {
         console.log('is PORTRAIT');
         imageUrl = data.photos[randomIndex].src.portrait;
     }
-    else if (landscape) {
+    else if (h < w) {
         console.log('is LANDSCAPE');
         imageUrl = photoList[randomIndex].src.landscape;
     }
+    console.log(imageUrl);
     document.body.style.backgroundImage = 'url(' + imageUrl + ')';
 }

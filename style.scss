@@ -11,6 +11,8 @@ html, *, *::after, *::before {
 body {
   height: 100vh;
   background: #ADD8E6;
+  background-repeat: no-repeat;
+  background-size: cover;
   color: #fff;
   text-shadow: #222 1px 3px 9px;
 }
