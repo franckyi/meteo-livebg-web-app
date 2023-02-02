@@ -82,14 +82,13 @@ function replaceBackground(data) {
     let h = window.innerHeight;
     let w = window.innerWidth;
 
-    // TODO FIX THESE CONDITIONS OR USE PROMISE
     if (h > w) {
         console.log('is PORTRAIT');
         imageUrl = data.photos[randomIndex].src.portrait;
     }
     else if (h < w) {
         console.log('is LANDSCAPE');
-        imageUrl = photoList[randomIndex].src.landscape;
+        imageUrl = data.photos[randomIndex].src.landscape;
     }
     console.log(imageUrl);
     document.body.style.backgroundImage = 'url(' + imageUrl + ')';

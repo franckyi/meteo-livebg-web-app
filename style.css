@@ -38,8 +38,6 @@ main {
   gap: 1em;
   align-items: flex-end;
   padding-right: 5%;
-  background-repeat: no-repeat;
-  background-size: cover;
   text-align: center;
 }
 main::after {
