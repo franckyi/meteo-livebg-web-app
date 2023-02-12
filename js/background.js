@@ -89,7 +89,8 @@ function replaceBackground(data) {
         imageUrl = data.photos[randomIndex].src.landscape;
     }
     console.log(imageUrl);
-    if (typeof imageUrl === undefined) {
+    console.log(typeof(imageUrl));
+    if (typeof imageUrl == 'undefined') {
         document.body.style.backgroundImage = 'url(' + '../images/fb.jpg' + ')';
     }
     else {
