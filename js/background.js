@@ -22,6 +22,7 @@ let query;
 
 export const chooseWord = function () {
 
+    if (description !== undefined) {
         if (temp <= 0) {
             query = queries.cold[ Math.floor( Math.random() * (queries.cold.length+1) ) ];
             // console.log('temp < 0');
@@ -46,15 +47,17 @@ export const chooseWord = function () {
             else if (description.includes('sun') ) {
                 query = queries.sun[ Math.floor( Math.random() * ((queries.sun.length)+1) ) ];
             }
-            else if (description.includes('undefined') ) {
-                query = queries.undefined[ Math.floor( Math.random() * ((queries.undefined.length)+1) ) ];
-            }
         }
+    }
+    else {
+        console.warn('description is undefined');
+        query = queries.undefined[ Math.floor( Math.random() * ((queries.undefined.length)+1) ) ];
+    }
 
-        console.log('✅ called chooseWord()');
-        console.log(`chose word: ${query}`);
-        
-        fetchImage();
+    console.log('✅ called chooseWord()');
+    console.log(`chose word: ${query}`);
+    
+    fetchImage();
 }
 
 function fetchImage() {
@@ -72,11 +75,8 @@ function fetchImage() {
 function replaceBackground(data) {
     console.log('✅ called replaceBackground()');
 
-    // let portrait = window.matchMedia('orientation: portrait');
-    // let landscape = window.matchMedia('orientation: landscape');
     let randomIndex = Math.floor( Math.random() * ((data.photos.length)+1) );
     let imageUrl;
-
     let h = window.innerHeight;
     let w = window.innerWidth;
 
@@ -89,5 +89,11 @@ function replaceBackground(data) {
         imageUrl = data.photos[randomIndex].src.landscape;
     }
     console.log(imageUrl);
-    document.body.style.backgroundImage = 'url(' + imageUrl + ')';
+    if (typeof imageUrl === undefined) {
+        document.body.style.backgroundImage = 'url(' + '../images/fb.jpg' + ')';
+    }
+    else {
+        document.body.style.backgroundImage = 'url(' + imageUrl + ')';
+    }
+    
 }

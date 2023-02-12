@@ -97,7 +97,6 @@ console.log(data);
     sunriseHTML.textContent = `${sunriseGMT.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'} )}`;
     sunsetHTML.textContent = `${sunsetGMT.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'} )}`;
     console.log( '✅ updated data' );
-    // REPLACE BACKGROUND ONLY AFTER CONFIRMING SUGGESTION (NAMED OPTION IN HTML)!!
     chooseWord();
 }
 
@@ -172,3 +171,7 @@ btn.addEventListener( 'click', e => {
     e.preventDefault();
     inputCity.value = '';
 });
+
+if (inputCity.value.length > 0) {
+    inputCity.value = inputCity.value + ' Enter key to reset 🔄';
+}
