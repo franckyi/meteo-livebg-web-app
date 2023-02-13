@@ -171,7 +171,3 @@ btn.addEventListener( 'click', e => {
     e.preventDefault();
     inputCity.value = '';
 });
-
-if (inputCity.value.length > 0) {
-    inputCity.value = inputCity.value + ' Enter key to reset 🔄';
-}
