@@ -47,12 +47,16 @@ let capturedOptions = [];
     today.innerHTML = `${currentDate} ${months[currentMonth]}`;
 })();
 
-if (navigator.geolocation) {
+const getCoords = () => {
     navigator.geolocation.getCurrentPosition( position => {
         requestedLocation.lat = position.coords.latitude;
         requestedLocation.lon = position.coords.longitude;
         fetchPosition(`https://api.openweathermap.org/data/2.5/weather?lat=${requestedLocation.lat}&lon=${requestedLocation.lon}&appid=${OPENWEATHER_APIKEY}&units=metric`);
     })
+}
+
+if (navigator.geolocation) {
+    getCoords();
 }
 
 const updateData = function(data) {
