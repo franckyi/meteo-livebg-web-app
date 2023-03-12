@@ -11,13 +11,13 @@ const form = document.getElementById('form');
 const inputCity = document.getElementById('input-city');
 const btn = document.getElementById('btn');
 let datalist = document.createElement('datalist');
-let Results = [];
+let results = [];
 let requestedLocation = {
-    name: undefined,
-    state: undefined,
-    country: undefined,
-    lat: undefined,
-    lon: undefined,
+    name: null,
+    state: null,
+    country: null,
+    lat: null,
+    lon: null,
 } 
 let capturedOptions = [];
 
@@ -115,7 +115,6 @@ const fetchQuery = function(requestedLocation) {
         if (data.length > 0) {
             data.forEach( d => { capturedOptions.push(d) } );
             displayOptionsHTML(data);
-            // chooseWord(); // CALL ONLY WHEN CALLING UPDATEDATA()
         }
     });
 }
@@ -128,10 +127,10 @@ const displayOptionsHTML = data => {
     }
     else if (data.length > 1) {
         data.forEach( city => {        
-            Results.push(city);
+            results.push(city);
         });
 
-        Results.forEach( result => {
+        results.forEach( result => {
             let option = document.createElement('option');
             requestedLocation.name = result.name ?? result.city;
             requestedLocation.lat = result.lat ?? '';
@@ -157,7 +156,7 @@ const freezeCurrentOptions = regex => {
 }
 
 inputCity.addEventListener( 'input', () => {
-    Results = [];
+    results = [];
     let regex = inputCity.value.toLowerCase().replaceAll('  ',' ').trim();
     freezeCurrentOptions(regex);
     form.appendChild(datalist);
