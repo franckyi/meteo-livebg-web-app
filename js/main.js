@@ -3,14 +3,22 @@ import { chooseWord } from '../js/background.js';
 
 const tempC = document.querySelector('.c');
 const desc = document.querySelector('.desc');
-
-let temp;
-let description;
-
+const iconHTML = document.getElementById('weather-icon');
+const loc = document.querySelector('.location');
+const tempFeel = document.getElementById('feel');
+const tempMin = document.querySelector('.min');
+const press = document.querySelector('.pressure');
+const humid = document.querySelector('.humidity');
+const windSpeed = document.querySelector('.wind');
+const tempMax = document.querySelector('.max');
+const sunriseHTML = document.querySelector('.sunrise');
+const sunsetHTML = document.querySelector('.sunset');
 const form = document.getElementById('form');
 const inputCity = document.getElementById('input-city');
 const btn = document.getElementById('btn');
 let datalist = document.createElement('datalist');
+let temp = null;
+let description = null;
 let results = [];
 let requestedLocation = {
     name: null,
@@ -21,7 +29,7 @@ let requestedLocation = {
 } 
 let capturedOptions = [];
 
-(function displayTime() {
+function displayTime() {
     const time = document.getElementById('time');
     const today = document.getElementById('date');
     let currentDate = new Date().getDate();
@@ -45,43 +53,13 @@ let capturedOptions = [];
     minutes = minutes < 10 ? `0${minutes}` : minutes;
     time.innerHTML = `${hour}:${minutes},`;
     today.innerHTML = `${currentDate} ${months[currentMonth]}`;
-})();
-
-const getCoords = () => {
-    navigator.geolocation.getCurrentPosition( position => {
-        requestedLocation.lat = position.coords.latitude;
-        requestedLocation.lon = position.coords.longitude;
-        fetchPosition(`https://api.openweathermap.org/data/2.5/weather?lat=${requestedLocation.lat}&lon=${requestedLocation.lon}&appid=${OPENWEATHER_APIKEY}&units=metric`);
-    })
-}
-
-if (navigator.geolocation) {
-    getCoords();
 }
 
 const updateData = function(data) {
-console.log('data');
-console.log(data);
-
-    const iconHTML = document.getElementById('weather-icon');
-    const loc = document.querySelector('.location');
-    const tempFeel = document.getElementById('feel');
-    const tempMin = document.querySelector('.min');
-    const press = document.querySelector('.pressure');
-    const humid = document.querySelector('.humidity');
-    const windSpeed = document.querySelector('.wind');
-    const tempMax = document.querySelector('.max');
-    const sunriseHTML = document.querySelector('.sunrise');
-    const sunsetHTML = document.querySelector('.sunset');
     let location = data.name;
     let { icon } = data.weather[0];
-
     temp = data.main.temp;
     description = data.weather[0].description;
-
-    localStorage.setItem('temperature', temp);
-    localStorage.setItem('description', description);
-
     let { feels_like, temp_min, temp_max, pressure, humidity } = data.main;
     let { speed } = data.wind;
     let { sunrise, sunset } = data.sys;
@@ -100,21 +78,29 @@ console.log(data);
     windSpeed.textContent = `${speed}`;
     sunriseHTML.textContent = `${sunriseGMT.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'} )}`;
     sunsetHTML.textContent = `${sunsetGMT.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'} )}`;
-    console.log( '✅ updated data' );
+    localStorage.setItem('temperature', temp);
+    localStorage.setItem('description', description);
     chooseWord();
 }
 
-const fetchPosition = function(useLatLon) {
-    fetch(useLatLon).then( resp => resp.json() )
+const fetchCurrentCoords = function(URL) {
+    fetch(URL).then( resp => resp.json() )
         .then( data => {
-        console.log( '✅ fetched position' )
         updateData(data);
     });
 }
 
-const fetchQuery = function(requestedLocation) {
-    requestedLocation.name = inputCity.value;
-    fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${requestedLocation.name}&limit=5&appid=${OPENWEATHER_APIKEY}&units=metric`)
+const getCoords = () => {
+    navigator.geolocation.getCurrentPosition( position => {
+        let lat = position.coords.latitude;
+        let lon = position.coords.longitude;
+        fetchCurrentCoords(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${OPENWEATHER_APIKEY}&units=metric`);
+    })
+}
+
+const fetchQuery = function(query) {
+    query = inputCity.value;
+    fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${query}&limit=5&appid=${OPENWEATHER_APIKEY}&units=metric`)
     .then( resp => resp.json() ).then( data => {
         if (data.length > 0) {
             data.forEach( d => { capturedOptions.push(d) } );
@@ -151,26 +137,35 @@ const freezeCurrentOptions = regex => {
     capturedOptions.forEach( o => {
         const current = `${o.name} ${o.state} ${o.country}`;
         if ( current.toLowerCase().includes(regex) ) {
-            requestedLocation.lat = o.lat;
-            requestedLocation.lon = o.lon;
-            fetchPosition(`https://api.openweathermap.org/data/2.5/weather?lat=${requestedLocation.lat}&lon=${requestedLocation.lon}&appid=${OPENWEATHER_APIKEY}&units=metric`);
+            let lat = o.lat;
+            let lon = o.lon;
+            fetchCurrentCoords(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${OPENWEATHER_APIKEY}&units=metric`);
         }
     });
     capturedOptions = [];
 }
 
-inputCity.addEventListener( 'input', () => {
-    results = [];
-    let regex = inputCity.value.toLowerCase().replaceAll('  ',' ').trim();
-    freezeCurrentOptions(regex);
-    form.appendChild(datalist);
-    datalist.innerHTML = "";
-    datalist.setAttribute('id', 'results');
-    requestedLocation.name = inputCity.value;
-    fetchQuery(requestedLocation);
-});
+document.addEventListener( "DOMContentLoaded", () => {
+    displayTime();
 
-btn.addEventListener( 'click', e => {
-    e.preventDefault();
-    inputCity.value = '';
+    if (navigator.geolocation) {
+        getCoords();
+    }
+
+    inputCity.addEventListener( 'input', () => {
+        results = [];
+        let regex = inputCity.value.toLowerCase().replaceAll('  ',' ').trim();
+        freezeCurrentOptions(regex);
+        form.appendChild(datalist);
+        datalist.innerHTML = "";
+        datalist.setAttribute('id', 'results');
+        requestedLocation.name = inputCity.value;
+        fetchQuery(requestedLocation);
+    });
+    
+    btn.addEventListener( 'click', e => {
+        e.preventDefault();
+        inputCity.value = '';
+    });
+    
 });
