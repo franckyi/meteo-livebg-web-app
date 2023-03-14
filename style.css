@@ -24,6 +24,11 @@ body {
     justify-content: space-between;
   }
 }
+@media screen and (min-width: 992px) {
+  body {
+    flex-direction: row;
+  }
+}
 
 form {
   position: fixed;
@@ -96,6 +101,11 @@ main .icon {
 main .icon .weather-icon {
   width: 38px;
 }
+@media screen and (min-width: 992px) {
+  main .icon .weather-icon {
+    width: 100px;
+  }
+}
 main .temp {
   display: flex;
   flex-direction: column;
@@ -109,6 +119,11 @@ main .temp .c {
   main .temp .c {
     width: 60vw;
     text-align: right;
+  }
+}
+@media screen and (min-width: 992px) {
+  main .temp .c {
+    font-size: 8rem;
   }
 }
 main .temp .feel::before {
@@ -131,6 +146,12 @@ article {
     flex-direction: column;
     justify-content: center;
     width: 20vw;
+  }
+}
+@media screen and (min-width: 992px) {
+  article {
+    right: 0;
+    height: 100vh;
   }
 }
 article .info-box {

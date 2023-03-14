@@ -22,6 +22,9 @@ body {
     display: flex;
     justify-content: space-between;
   }
+  @media screen and (min-width: 992px) {
+    flex-direction: row;
+  }
 }
 
 form {
@@ -91,6 +94,9 @@ main {
     justify-content: flex-end;
     .weather-icon {
       width: 38px;
+      @media screen and (min-width: 992px) {
+        width: 100px;
+      }
     }
   }
 
@@ -104,6 +110,9 @@ main {
       @media screen and (orientation: landscape) {
         width: 60vw;
         text-align: right;
+      }
+      @media screen and (min-width: 992px) {
+        font-size: 8rem;
       }
     }
     .feel {
@@ -130,6 +139,10 @@ article {
     flex-direction: column;
     justify-content: center;
     width: 20vw;
+  }
+  @media screen and (min-width: 992px) {
+    right: 0;
+    height: 100vh;
   }
 
   .info-box {
