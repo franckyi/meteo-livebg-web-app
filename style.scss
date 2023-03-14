@@ -9,6 +9,9 @@ html, *, *::after, *::before {
 }
 
 body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   height: 100vh;
   background: #ADD8E6;
   background-repeat: no-repeat;
@@ -22,6 +25,8 @@ body {
 }
 
 form {
+  position: fixed;
+  top: 0;
   width: 100vw;
   height: 5vh;
   margin-bottom: 1em;
@@ -38,7 +43,7 @@ form {
 
   input {
     width: 100%;
-    height: 2em;
+    height: 3em;
     text-align: center;
     font-size: 1em;
     border: none;
@@ -115,6 +120,9 @@ main {
 article {
   display: flex;
   align-items: center;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
   margin-top: 1em;
   background-image: linear-gradient(360deg, #21d4fdb3 0%, #b721ffa1 100%);
   @media screen and (orientation: landscape) {
@@ -163,4 +171,11 @@ article {
     }
 
   }
+}
+
+.hot {
+  color: #ffa36b;
+}
+.cold {
+  color: #79fff6;
 }

@@ -70,6 +70,18 @@ const updateData = function(data) {
     loc.textContent = `${location}`;
     desc.textContent = `${description}`;
     tempC.textContent = `${temp.toFixed(1)} °C`;
+
+    if (temp > 20) {
+        tempC.classList.remove('cold');
+        tempC.classList.add('hot');
+    } else if (temp < 6) {
+        tempC.classList.remove('hot');
+        tempC.classList.add('cold');
+    } else {
+        tempC.classList.remove('hot');
+        tempC.classList.remove('cold');
+    }
+
     tempFeel.textContent = `${feels_like.toFixed(1)} °C`;
     tempMin.textContent = `min ${temp_min.toFixed(1)} °C`;
     tempMax.textContent = `max ${temp_max.toFixed(1)} °C`;
