@@ -78,9 +78,7 @@ const updateData = function(data) {
     windSpeed.textContent = `${speed}`;
     sunriseHTML.textContent = `${sunriseGMT.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'} )}`;
     sunsetHTML.textContent = `${sunsetGMT.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'} )}`;
-    localStorage.setItem('temperature', temp);
-    localStorage.setItem('description', description);
-    chooseWord();
+    chooseWord(temp, description);
 }
 
 const fetchCurrentCoords = function(URL) {
