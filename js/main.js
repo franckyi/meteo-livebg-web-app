@@ -1,3 +1,5 @@
+"use strict";
+
 import { OPENWEATHER_APIKEY } from '../js/config.js';
 import { chooseWord } from '../js/background.js';
 
