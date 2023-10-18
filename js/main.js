@@ -57,7 +57,7 @@ function displayTime() {
     today.innerHTML = `${currentDate} ${months[currentMonth]}`;
 }
 
-const updateData = function(data) {
+const updateData = data => {
     let location = data.name;
     let { icon } = data.weather[0];
     temp = data.main.temp;
@@ -95,7 +95,7 @@ const updateData = function(data) {
     chooseWord(temp, description);
 }
 
-const fetchCurrentCoords = function(URL) {
+const fetchCurrentCoords = URL => {
     fetch(URL).then( resp => resp.json() )
         .then( data => {
         updateData(data);
@@ -110,7 +110,7 @@ const getCoords = () => {
     })
 }
 
-const fetchQuery = function(query) {
+const fetchQuery = query => {
     query = inputCity.value;
     fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${query}&limit=5&appid=${OPENWEATHER_APIKEY}&units=metric`)
     .then( resp => resp.json() ).then( data => {
