@@ -1,7 +1,6 @@
 .idea/
 .vscode/
-keys.js
-/node_modules
+node_modules
 functions
 package-lock.json
 style.css
