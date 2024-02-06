@@ -1,4 +1,4 @@
-import { PEXELS_APIKEY } from '../js/config.js';
+import { PEXELS_APIKEY } from '../js/keys.js';
 
 function replaceBackground(data) {
     let randomIndex = Math.floor( Math.random() * ((data.photos.length)+1) );
