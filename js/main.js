@@ -1,6 +1,6 @@
 "use strict";
 
-import { OPENWEATHER_APIKEY } from "./api-variables.js";
+import { OPENWEATHER_APIKEY } from "./keys.js";
 import { chooseWord } from "../js/background.js";
 
 const tempC = document.querySelector(".c");

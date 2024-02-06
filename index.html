@@ -1,72 +1,96 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Meteo Station</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="apple-touch-icon" sizes="180x180" href="images/favicon/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="images/favicon/favicon-16x16.png">
-  <link rel="manifest" href="images/favicon/site.webmanifest">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta content="ie=edge" />
+    <title>Meteo Station</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="images/favicon/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="images/favicon/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="images/favicon/favicon-16x16.png"
+    />
+    <link rel="manifest" href="images/favicon/site.webmanifest" />
+  </head>
+  <body>
+    <form id="form" action="">
+      <input
+        id="input-city"
+        list="results"
+        type="text"
+        placeholder="search City"
+        aria-label="form"
+      />
+      <input id="btn" type="submit" hidden />
+    </form>
 
-  <form id="form" action="">
-    <input id="input-city" list="results" type="text" placeholder="search City" aria-label="form">
-    <input id="btn" type="submit" hidden>
-  </form>
-
-  <main>
-
-    <div class="current-date">
-      <span id="time" class="time"></span>
-      <span id="date" class="date"></span>
-    </div>
-    
-    <div class="city">
-      <div class="icon">
-        <img class="weather-icon" id="weather-icon" src="" alt="weather icon">
-        <span id="description" class="desc">no data</span>
+    <main>
+      <div class="current-date">
+        <span id="time" class="time"></span>
+        <span id="date" class="date"></span>
       </div>
-      <h1 class="location">Service unavailable</h1>
-    </div>    
 
-    <div class="temp">
-      <span class="max">no data</span>
-      <span class="c">no data</span>
-      <span id="feel" class="feel">no data</span>
-      <span class="min">no data</span>
-    </div>
+      <div class="city">
+        <div class="icon">
+          <img
+            class="weather-icon"
+            id="weather-icon"
+            src=""
+            alt="weather icon"
+          />
+          <span id="description" class="desc">no data</span>
+        </div>
+        <h1 class="location">Service unavailable</h1>
+      </div>
 
-  </main>
+      <div class="temp">
+        <span class="max">no data</span>
+        <span class="c">no data</span>
+        <span id="feel" class="feel">no data</span>
+        <span class="min">no data</span>
+      </div>
+    </main>
 
-  <article>
-    <div class="info-box">
-      <img class="info-box__icon" src="./images/hum.png" alt="humidity">
-      <span class="info-box__label">humidity</span>
-      <span class="humidity"></span>
-    </div>
-    <div class="info-box">
-      <img class="info-box__icon" src="./images/wind.png" alt="wind">
-      <span class="info-box__label">wind</span>
-      <span class="wind"></span>
-    </div>
-    <div class="info-box">
-      <img class="info-box__icon" src="./images/pres.png" alt="pressure">
-      <span class="info-box__label">pressure</span>
-      <span class="pressure"></span>
-    </div>
-    <div class="day info-box">
-      <img class="info-box__icon sun-icon" src="./images/sun.png" alt="sunrise and sunset">
-      <span class="sunrise">no data</span>
-      <span class="sunset">no data</span>
-    </div>
-  </article>
-
-  <script src="js/config.js" type="module"></script>
-  <script src="js/main.js" type="module"></script>
-  <script src="js/background.js" type="module"></script>
-</body>
+    <article>
+      <div class="info-box">
+        <img class="info-box__icon" src="./images/hum.png" alt="humidity" />
+        <span class="info-box__label">humidity</span>
+        <span class="humidity"></span>
+      </div>
+      <div class="info-box">
+        <img class="info-box__icon" src="./images/wind.png" alt="wind" />
+        <span class="info-box__label">wind</span>
+        <span class="wind"></span>
+      </div>
+      <div class="info-box">
+        <img class="info-box__icon" src="./images/pres.png" alt="pressure" />
+        <span class="info-box__label">pressure</span>
+        <span class="pressure"></span>
+      </div>
+      <div class="day info-box">
+        <img
+          class="info-box__icon sun-icon"
+          src="./images/sun.png"
+          alt="sunrise and sunset"
+        />
+        <span class="sunrise">no data</span>
+        <span class="sunset">no data</span>
+      </div>
+    </article>
+    <script src="js/main.js" type="module"></script>
+    <script src="js/background.js" type="module"></script>
+  </body>
 </html>
